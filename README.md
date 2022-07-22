@@ -15,7 +15,7 @@ Where the parameters are the following:
 - Path to the DDL sql file
 - Programming language for which source code will be generated.
 
-Suported programming languages are:
+Suported programming languages (parameters) are:
 
 - Java (java)
 - Dart (dart).
