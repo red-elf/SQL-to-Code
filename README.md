@@ -1,6 +1,6 @@
 # DDL to Code
 
-Tool for generating the source code from DDL data.
+Tool for generating source code from the DDL sql data.
 
 CURRENTLY IN THE PHASE OF DEVELOPMENT.
 
