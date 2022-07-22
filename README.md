@@ -6,6 +6,8 @@ CURRENTLY IN THE PHASE OF DEVELOPMENT.
 
 ## How to use
 
+The follwoing example shows the conversion from the SQL ddl file into the Dart source code:
+
 `ddl2code ddl.sql dart`
 
 Where the parameters are the following:
