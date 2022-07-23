@@ -4,9 +4,16 @@ Tool for generating source code from the DDL sql data.
 
 CURRENTLY IN THE PHASE OF DEVELOPMENT.
 
+## Code dependencies
+
+The ddl2code codebase depends on the following libraries:
+
+- RedElf's [Logger](https://github.com/red-elf/Logger)
+- RedElf's [Tester](https://github.com/red-elf/Tester)
+
 ## How to use
 
-The follwoing example shows the conversion from the SQL ddl file into the Dart source code:
+The following example shows the conversion from the SQL ddl file into the Dart source code:
 
 `ddl2code ddl.sql dart`
 
