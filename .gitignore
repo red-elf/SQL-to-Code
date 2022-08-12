@@ -36,3 +36,4 @@ Build
 cmake-build-*
 _Dependencies
 BuildConfig.*
+VersionInfo.*
