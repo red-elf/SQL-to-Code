@@ -16,6 +16,10 @@ int main(int argc, char *argv[]) {
             .required()
             .help("The path for the input DDL file");
 
+    program.add_argument("-o", "--output")
+            .required()
+            .help("The target programming language");
+
     std::string epilog("Project homepage: ");
     epilog.append(getHomepage());
 
@@ -35,7 +39,10 @@ int main(int argc, char *argv[]) {
     try {
 
         auto input = program.get<std::string>("input");
+        auto output = program.get<std::string>("output");
+
         i("processing", input);
+        i("target", output);
 
         // TODO:
 
