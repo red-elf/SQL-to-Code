@@ -31,5 +31,18 @@ int main(int argc, char *argv[]) {
         e(tag, err.what());
         std::exit(1);
     }
+
+    try {
+
+        auto input = program.get<std::string>("input");
+        i(tag, "Input: " + input);
+
+        // TODO:
+
+    } catch (std::logic_error &err) {
+
+        e(tag, err.what());
+        std::exit(1);
+    }
     return 0;
 }
