@@ -25,6 +25,6 @@ link_libraries(openddlparser)
 include_directories("/usr/local/include/argparse")
 
 file(GLOB APP_SRC "*.h" "*.cpp")
-add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp)
+add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin/${PROJECT_NAME})
