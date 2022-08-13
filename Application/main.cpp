@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     try {
 
         auto input = program.get<std::string>("input");
-        i(tag, "Input: " + input);
+        i("processing", input);
 
         // TODO:
 
