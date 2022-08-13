@@ -16,6 +16,11 @@ include_directories("/usr/local/include/Tester-1.0.0") # Access to shared librar
 link_directories("/usr/local/lib/Tester-1.0.0") # Link shared library
 link_libraries(Tester-1.0.0)
 
+# DDL Parser dependency:
+include_directories("/usr/local/include/openddlparser") # Access to shared library header files
+link_directories("/usr/local/lib/openddlparser") # Link shared library
+link_libraries(openddlparser)
+
 # argparse dependency:
 include_directories("/usr/local/include/argparse")
 
