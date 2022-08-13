@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         auto output = program.get<std::string>("output");
 
         i("processing", input);
-        i("target", output);
+        i("into --->", output);
 
         // TODO:
 
