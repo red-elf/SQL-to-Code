@@ -2,11 +2,11 @@
 
 #include "Utils.h"
 
+using namespace Utils;
+
 int main() {
 
-    auto logger = Utils::createLogger();
 
-    logger->log("ddl2code", "Hello!");
-
+    v("main", "Hello!");
     return 0;
 }
