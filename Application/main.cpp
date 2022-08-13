@@ -1,24 +1,27 @@
-#include <iostream>
 #include <chrono>
+#include <string>
+#include <iostream>
+#include <argparse/argparse.hpp>
 
 #include "Logger.h"
 #include "LogLevel.h"
 #include "LoggerSimple.h"
-#include "LoggerFactory.h"
-#include "LoggerLibrary.h"
+#include "LoggerChained.h"
+#include "VersionInfo.h"
+#include "FileOutputWriter.h"
 
 namespace Utils {
 
-    static Logger *createSimpleLogger() {
+    static Logger *createLogger() {
 
-        static LoggerSimple loggerSimple;
-        return &loggerSimple;
+        static LoggerSimple simpleLogger;
+        return &simpleLogger;
     }
 }
 
 int main() {
 
-    auto logger = Utils::createSimpleLogger();
+    auto logger = Utils::createLogger();
 
     logger->log("ddl2code", "Hello!");
 
