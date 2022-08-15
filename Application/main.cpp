@@ -91,11 +91,22 @@ int main(int argc, char *argv[]) {
 
         if (result.isValid()) {
 
+            auto count = result.size();
+
             v(parsingTag, "Completed");
 
-            /**
-             * TODO: Access results
-             */
+            if (count > 0) {
+
+                v(parsingTag, "Count: " + std::to_string(count));
+
+                /**
+                 * TODO: Access results
+                 */
+
+            } else {
+
+                w(parsingTag, "No items");
+            }
 
         } else {
 
