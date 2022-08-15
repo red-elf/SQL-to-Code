@@ -1,22 +1,22 @@
-# DDL to Code
+# SQL to Code
 
-Tool for generating source code from the DDL sql data.
+Tool for generating source code from the raw sql data.
 
 CURRENTLY IN THE PHASE OF DEVELOPMENT.
 
 ## Code dependencies
 
-The ddl2code codebase dependencies are defined under the [Dependencies](./Dependencies) directory.
+The sql2code codebase dependencies are defined under the [Dependencies](./Dependencies) directory.
 
 ## How to use
 
 The following example shows the conversion from the SQL ddl file into the Dart source code:
 
-`ddl2code -i ddl.sql -o dart`
+`sql2code -i data.sql -o cpp`
 
 Where the parameters are the following:
 
-- Path to the DDL sql file
+- Path to the sql file
 - Programming language for which source code will be generated.
 
 Supported programming languages (parameters) are:
