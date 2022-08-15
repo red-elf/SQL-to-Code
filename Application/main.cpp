@@ -1,4 +1,6 @@
+#include <iostream>
 #include <argparse/argparse.hpp>
+#include <openddlparser/OpenDDLParser.h>
 
 #include "Utils.h"
 #include "BuildConfig.h"
@@ -8,7 +10,7 @@ using namespace Utils;
 
 int main(int argc, char *argv[]) {
 
-    auto tag = "main";
+    auto errTag = "error";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
@@ -32,7 +34,7 @@ int main(int argc, char *argv[]) {
     }
     catch (const std::runtime_error &err) {
 
-        e(tag, err.what());
+        e(errTag, err.what());
         std::exit(1);
     }
 
@@ -44,11 +46,25 @@ int main(int argc, char *argv[]) {
         i("processing", input);
         i("into --->", output);
 
-        // TODO:
+        FILE *fileStream = fopen(input.c_str(), "r+");
+        // obtain file size:
+        fseek(fileStream, 0, SEEK_END);
+        const size_t size = ftell(fileStream);
+        rewind(fileStream);
+
+        if (size > 0) {
+
+            // TODO: Begin
+
+        } else {
+
+            e(errTag, "File size is zero");
+            std::exit(1);
+        }
 
     } catch (std::logic_error &err) {
 
-        e(tag, err.what());
+        e(errTag, err.what());
         std::exit(1);
     }
     return 0;
