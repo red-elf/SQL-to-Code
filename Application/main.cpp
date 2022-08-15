@@ -4,8 +4,10 @@
 #include "Utils.h"
 #include "BuildConfig.h"
 #include "VersionInfo.h"
+#include "SQLParser.h"
 
 using namespace Utils;
+using namespace hsql;
 
 int main(int argc, char *argv[]) {
 
@@ -67,10 +69,10 @@ int main(int argc, char *argv[]) {
             }
 
             // Set the memory buffer
-//            PARSER theParser;
-//            theParser.setBuffer(buffer, size);
+            std::string query(buffer);
+//            hsql::SQLParserResult* result = hsql::SQLParser::parseSQLString(query);
 //
-//            if (theParser.parse()) {
+//            if (result->isValid()) {
 //
 //                v("parsed", "Completed");
 //
