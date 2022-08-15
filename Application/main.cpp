@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
             }
 
             // Set the memory buffer
-//            OpenDDLParser theParser;
+//            PARSER theParser;
 //            theParser.setBuffer(buffer, size);
 //
 //            if (theParser.parse()) {

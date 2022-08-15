@@ -10,7 +10,7 @@ The sql2code codebase dependencies are defined under the [Dependencies](./Depend
 
 ## How to use
 
-The following example shows the conversion from the SQL ddl file into the Dart source code:
+The following example shows the conversion from the SQL file into the Dart source code:
 
 `sql2code -i data.sql -o cpp`
 

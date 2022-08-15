@@ -1,1 +1,1 @@
-ddl2code
+SQL to code conversion utility by Red Elf.
