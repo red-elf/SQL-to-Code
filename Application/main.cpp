@@ -7,6 +7,7 @@
 #include "VersionInfo.h"
 
 using namespace Utils;
+using namespace ODDLParser;
 
 int main(int argc, char *argv[]) {
 
@@ -54,7 +55,24 @@ int main(int argc, char *argv[]) {
 
         if (size > 0) {
 
-            // TODO: Begin
+            char *buffer = new char[size];
+            const size_t readSize = fread(buffer, sizeof(char), size, fileStream);
+
+            if (readSize != size) {
+
+                e(errTag, "Obtained size is different to the file size");
+                std::exit(1);
+            }
+
+            // Set the memory buffer
+            OpenDDLParser theParser;
+            theParser.setBuffer(buffer, size);
+
+            if (!theParser.parse()) {
+
+                e(errTag, "Error while parsing file " + input);
+                std::exit(1);
+            }
 
         } else {
 
