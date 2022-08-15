@@ -69,22 +69,26 @@ int main(int argc, char *argv[]) {
             }
 
             // Set the memory buffer
-            std::string query(buffer);
-//            hsql::SQLParserResult* result = hsql::SQLParser::parseSQLString(query);
-//
-//            if (result->isValid()) {
-//
-//                v("parsed", "Completed");
-//
-//                /**
-//                 * TODO: Access results
-//                 */
-//
-//            } else {
-//
-//                e(errTag, "Error while parsing file " + input);
-//                std::exit(1);
-//            }
+            const std::string query(buffer);
+
+            v("parsing", query);
+
+            SQLParserResult result;
+            SQLParser::parseSQLString(query, &result);
+
+            if (result.isValid()) {
+
+                v("parsed", "Completed");
+
+                /**
+                 * TODO: Access results
+                 */
+
+            } else {
+
+                e(errTag, "Error while parsing file " + input);
+                std::exit(1);
+            }
 
         } else {
 
