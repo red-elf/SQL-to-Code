@@ -1,13 +1,11 @@
 #include <iostream>
 #include <argparse/argparse.hpp>
-#include <openddlparser/OpenDDLParser.h>
 
 #include "Utils.h"
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 
 using namespace Utils;
-using namespace ODDLParser;
 
 int main(int argc, char *argv[]) {
 
@@ -17,7 +15,7 @@ int main(int argc, char *argv[]) {
 
     program.add_argument("-i", "--input")
             .required()
-            .help("The path for the input DDL file");
+            .help("The path for the input SQL file");
 
     program.add_argument("-o", "--output")
             .required()
@@ -69,22 +67,22 @@ int main(int argc, char *argv[]) {
             }
 
             // Set the memory buffer
-            OpenDDLParser theParser;
-            theParser.setBuffer(buffer, size);
-
-            if (theParser.parse()) {
-
-                v("parsed", "Completed");
-
-                /**
-                 * TODO: Access results
-                 */
-
-            } else {
-
-                e(errTag, "Error while parsing file " + input);
-                std::exit(1);
-            }
+//            OpenDDLParser theParser;
+//            theParser.setBuffer(buffer, size);
+//
+//            if (theParser.parse()) {
+//
+//                v("parsed", "Completed");
+//
+//                /**
+//                 * TODO: Access results
+//                 */
+//
+//            } else {
+//
+//                e(errTag, "Error while parsing file " + input);
+//                std::exit(1);
+//            }
 
         } else {
 

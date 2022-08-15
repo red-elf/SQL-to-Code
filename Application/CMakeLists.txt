@@ -16,10 +16,8 @@ include_directories("/usr/local/include/Tester-1.0.0")
 link_directories("/usr/local/lib/Tester-1.0.0")
 link_libraries(Tester-1.0.0)
 
-# DDL Parser dependency:
-include_directories("/usr/local/include/openddlparser")
-link_directories("/usr/local/lib/openddlparser")
-link_libraries(openddlparser)
+# SQL Parser dependency:
+# TODO:
 
 # argparse dependency:
 include_directories("/usr/local/include/argparse")
