@@ -2,7 +2,7 @@
 
 Tool for generating source code from the raw sql data.
 
-:warning: **Warning:** *CURRENTLY IN THE PHASE OF DEVELOPMENT*
+:warning: **Warning:** *CURRENTLY IN THE PHASE OF THE DEVELOPMENT*
 
 ## Code dependencies
 
