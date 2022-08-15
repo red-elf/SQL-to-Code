@@ -53,6 +53,11 @@ int main(int argc, char *argv[]) {
             .required()
             .help("The target programming language");
 
+    program.add_argument("-l", "--logFull")
+            .default_value(false)
+            .implicit_value(true)
+            .help("Log with the full details");
+
     std::string epilog("Project homepage: ");
     epilog.append(getHomepage());
 
@@ -71,6 +76,7 @@ int main(int argc, char *argv[]) {
 
     try {
 
+        auto logFull = program["--logFull"] == true;
         auto input = program.get<std::string>("input");
         auto output = program.get<std::string>("output");
 
@@ -78,17 +84,21 @@ int main(int argc, char *argv[]) {
         i("into --->", output);
 
         auto query = read_file(input);
-        auto pos = query.find('\n');
-        auto trace = std::list<std::string>();
 
-        if (pos != std::string::npos) {
+        if (logFull) {
 
-            tokenize(query, '\n', trace);
-        }
+            auto pos = query.find('\n');
+            auto trace = std::list<std::string>();
 
-        for (std::string row: trace) {
+            if (pos != std::string::npos) {
 
-            v(parsingTag, row);
+                tokenize(query, '\n', trace);
+            }
+
+            for (std::string row: trace) {
+
+                v(parsingTag, row);
+            }
         }
 
         SQLParserResult result;
@@ -116,11 +126,15 @@ int main(int argc, char *argv[]) {
         } else {
 
             e(errTag, "Error while parsing file " + input);
-            e(errTag, "Error at line: " + std::to_string(result.errorLine()));
-            e(errTag, "Error at column: " + std::to_string(result.errorColumn()));
+
+            if (logFull) {
+
+                e(errTag, "Error at line: " + std::to_string(result.errorLine()));
+                e(errTag, "Error at column: " + std::to_string(result.errorColumn()));
+            }
+
             std::exit(1);
         }
-
 
     } catch (std::logic_error &err) {
 
