@@ -129,8 +129,9 @@ int main(int argc, char *argv[]) {
 
             if (logFull) {
 
-                e(errTag, "Error at line: " + std::to_string(result.errorLine()));
-                e(errTag, "Error at column: " + std::to_string(result.errorColumn()));
+                e(errTag, result.errorMsg());
+                e(errTag, "Line: " + std::to_string(result.errorLine()));
+                e(errTag, "Column: " + std::to_string(result.errorColumn()));
             }
 
             std::exit(1);
