@@ -26,17 +26,6 @@ auto read_file(std::string_view path) -> std::string {
     return out;
 }
 
-void replaceAll(std::string &data, const std::string &toSearch, const std::string &replaceStr) {
-
-    size_t pos = data.find(toSearch);
-
-    while (pos != std::string::npos) {
-
-        data.replace(pos, toSearch.size(), replaceStr);
-        pos = data.find(toSearch, pos + replaceStr.size());
-    }
-}
-
 int main(int argc, char *argv[]) {
 
     auto errTag = "error";
@@ -79,10 +68,6 @@ int main(int argc, char *argv[]) {
 
         // Set the memory buffer
         std::string query = read_file(input);
-        replaceAll(query, "\t", " ");
-        replaceAll(query, "\n", " ");
-        replaceAll(query, "\r", " ");
-        replaceAll(query, "  ", " ");
 
         v(parsingTag, query);
 
@@ -111,6 +96,8 @@ int main(int argc, char *argv[]) {
         } else {
 
             e(errTag, "Error while parsing file " + input);
+            e(errTag, "Error at line: " + std::to_string(result.errorLine()));
+            e(errTag, "Error at column: " + std::to_string(result.errorColumn()));
             std::exit(1);
         }
 
