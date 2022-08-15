@@ -58,7 +58,11 @@ int main(int argc, char *argv[]) {
             char *buffer = new char[size];
             const size_t readSize = fread(buffer, sizeof(char), size, fileStream);
 
-            if (readSize != size) {
+            if (readSize == size) {
+
+                v("read", "Size in bytes: " + std::to_string(size));
+
+            } else {
 
                 e(errTag, "Obtained size is different to the file size");
                 std::exit(1);
@@ -70,7 +74,7 @@ int main(int argc, char *argv[]) {
 
             if (theParser.parse()) {
 
-                v("parsing", "Completed");
+                v("parsed", "Completed");
 
                 // TODO: Access results
 
