@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
@@ -9,9 +10,37 @@
 using namespace Utils;
 using namespace hsql;
 
+auto read_file(std::string_view path) -> std::string {
+
+    constexpr auto read_size = std::size_t(4096);
+    auto stream = std::ifstream(path.data());
+    stream.exceptions(std::ios_base::badbit);
+
+    auto out = std::string();
+    auto buf = std::string(read_size, '\0');
+    while (stream.read(&buf[0], read_size)) {
+
+        out.append(buf, 0, stream.gcount());
+    }
+    out.append(buf, 0, stream.gcount());
+    return out;
+}
+
+void replaceAll(std::string &data, const std::string &toSearch, const std::string &replaceStr) {
+
+    size_t pos = data.find(toSearch);
+
+    while (pos != std::string::npos) {
+
+        data.replace(pos, toSearch.size(), replaceStr);
+        pos = data.find(toSearch, pos + replaceStr.size());
+    }
+}
+
 int main(int argc, char *argv[]) {
 
     auto errTag = "error";
+    auto parsingTag = "parsing";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
@@ -32,8 +61,8 @@ int main(int argc, char *argv[]) {
     try {
 
         program.parse_args(argc, argv);
-    }
-    catch (const std::runtime_error &err) {
+
+    } catch (const std::runtime_error &err) {
 
         e(errTag, err.what());
         std::exit(1);
@@ -47,54 +76,33 @@ int main(int argc, char *argv[]) {
         i("processing", input);
         i("into --->", output);
 
-        FILE *fileStream = fopen(input.c_str(), "r+");
-        // obtain file size:
-        fseek(fileStream, 0, SEEK_END);
-        const size_t size = ftell(fileStream);
-        rewind(fileStream);
 
-        if (size > 0) {
+        // Set the memory buffer
+        std::string query = read_file(input);
+        replaceAll(query, "\t", " ");
+        replaceAll(query, "\n", " ");
+        replaceAll(query, "\r", " ");
+        replaceAll(query, "  ", " ");
 
-            char *buffer = new char[size];
-            const size_t readSize = fread(buffer, sizeof(char), size, fileStream);
+        v(parsingTag, query);
 
-            if (readSize == size) {
+        SQLParserResult result;
+        SQLParser::parseSQLString(query, &result);
 
-                v("read", "Size in bytes: " + std::to_string(size));
+        if (result.isValid()) {
 
-            } else {
+            v(parsingTag, "Completed");
 
-                e(errTag, "Obtained size is different to the file size");
-                std::exit(1);
-            }
-
-            // Set the memory buffer
-            const std::string query(buffer);
-
-            v("parsing", query);
-
-            SQLParserResult result;
-            SQLParser::parseSQLString(query, &result);
-
-            if (result.isValid()) {
-
-                v("parsed", "Completed");
-
-                /**
-                 * TODO: Access results
-                 */
-
-            } else {
-
-                e(errTag, "Error while parsing file " + input);
-                std::exit(1);
-            }
+            /**
+             * TODO: Access results
+             */
 
         } else {
 
-            e(errTag, "File size is zero");
+            e(errTag, "Error while parsing file " + input);
             std::exit(1);
         }
+
 
     } catch (std::logic_error &err) {
 
