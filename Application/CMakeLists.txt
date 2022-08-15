@@ -17,7 +17,9 @@ link_directories("/usr/local/lib/Tester-1.0.0")
 link_libraries(Tester-1.0.0)
 
 # SQL Parser dependency:
-# TODO:
+include_directories("/usr/local/include/hsql")
+link_directories("/usr/local/lib/")
+link_libraries(sqlparser)
 
 # argparse dependency:
 include_directories("/usr/local/include/argparse")
