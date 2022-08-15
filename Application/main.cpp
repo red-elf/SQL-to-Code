@@ -68,7 +68,13 @@ int main(int argc, char *argv[]) {
             OpenDDLParser theParser;
             theParser.setBuffer(buffer, size);
 
-            if (!theParser.parse()) {
+            if (theParser.parse()) {
+
+                v("parsing", "Completed");
+
+                // TODO: Access results
+
+            } else {
 
                 e(errTag, "Error while parsing file " + input);
                 std::exit(1);
