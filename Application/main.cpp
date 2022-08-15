@@ -72,9 +72,6 @@ int main(int argc, char *argv[]) {
             OpenDDLParser theParser;
             theParser.setBuffer(buffer, size);
 
-            /**
-             * TODO: If SQL convert, if not parse
-             */
             if (theParser.parse()) {
 
                 v("parsed", "Completed");
