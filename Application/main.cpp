@@ -26,6 +26,18 @@ auto read_file(std::string_view path) -> std::string {
     return out;
 }
 
+void tokenize(std::string const &str, const char delim, std::list <std::string> &out) {
+
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(delim, end)) != std::string::npos) {
+
+        end = str.find(delim, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
+
 int main(int argc, char *argv[]) {
 
     auto errTag = "error";
@@ -65,11 +77,19 @@ int main(int argc, char *argv[]) {
         i("processing", input);
         i("into --->", output);
 
+        auto query = read_file(input);
+        auto pos = query.find('\n');
+        auto trace = std::list<std::string>();
 
-        // Set the memory buffer
-        std::string query = read_file(input);
+        if (pos != std::string::npos) {
 
-        v(parsingTag, query);
+            tokenize(query, '\n', trace);
+        }
+
+        for (std::string row: trace) {
+
+            v(parsingTag, row);
+        }
 
         SQLParserResult result;
         SQLParser::parseSQLString(query, &result);
