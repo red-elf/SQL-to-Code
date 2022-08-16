@@ -17,6 +17,7 @@ using namespace Commons::Strings;
 int main(int argc, char *argv[]) {
 
     auto errTag = "error";
+    auto tableTag = "table";
     auto parsingTag = "parsing";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
@@ -88,15 +89,16 @@ int main(int argc, char *argv[]) {
 
             if (count > 0) {
 
-                v(parsingTag, "Count: " + std::to_string(count));
+                v(parsingTag, "Statements count: " + std::to_string(count));
 
                 auto statements = result.getStatements();
-                for (const SQLStatement* statement: statements) {
+                for (const SQLStatement *statement: statements) {
 
                     auto type = statement->type();
                     if (type == StatementType::kStmtCreate) {
 
-                        v(parsingTag, "CREATE");
+                        const auto *create = static_cast<const hsql::CreateStatement *>(statement);
+                        v(tableTag, create->tableName);
                     }
                 }
 
