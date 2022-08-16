@@ -11,6 +11,11 @@ include_directories("/usr/local/include/Logger-1.0.0")
 link_directories("/usr/local/lib/Logger-1.0.0")
 link_libraries(Logger-1.0.0)
 
+# Commons dependency:
+include_directories("/usr/local/include/Commons-1.0.0")
+link_directories("/usr/local/lib/Commons-1.0.0")
+link_libraries(Commons-1.0.0)
+
 # Tester dependency:
 include_directories("/usr/local/include/Tester-1.0.0")
 link_directories("/usr/local/lib/Tester-1.0.0")
