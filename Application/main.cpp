@@ -94,7 +94,10 @@ int main(int argc, char *argv[]) {
                 for (const SQLStatement* statement: statements) {
 
                     auto type = statement->type();
-                    v(parsingTag, "Type line");
+                    if (type == StatementType::kStmtCreate) {
+
+                        v(parsingTag, "CREATE");
+                    }
                 }
 
             } else {
