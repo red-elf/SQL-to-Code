@@ -6,6 +6,7 @@
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 #include "SQLParser.h"
+#include "sql/SQLStatement.h"
 #include "Commons.h"
 
 using namespace Utils;
@@ -89,9 +90,12 @@ int main(int argc, char *argv[]) {
 
                 v(parsingTag, "Count: " + std::to_string(count));
 
-                /**
-                 * TODO: Access results
-                 */
+                auto statements = result.getStatements();
+                for (const SQLStatement* statement: statements) {
+
+                    auto type = statement->type();
+                    v(parsingTag, "Type line");
+                }
 
             } else {
 
