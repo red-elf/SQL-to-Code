@@ -6,37 +6,12 @@
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 #include "SQLParser.h"
+#include "Commons.h"
 
 using namespace Utils;
 using namespace hsql;
-
-auto read_file(std::string_view path) -> std::string {
-
-    constexpr auto read_size = std::size_t(4096);
-    auto stream = std::ifstream(path.data());
-    stream.exceptions(std::ios_base::badbit);
-
-    auto out = std::string();
-    auto buf = std::string(read_size, '\0');
-    while (stream.read(&buf[0], read_size)) {
-
-        out.append(buf, 0, stream.gcount());
-    }
-    out.append(buf, 0, stream.gcount());
-    return out;
-}
-
-void tokenize(std::string const &str, const char delim, std::list <std::string> &out) {
-
-    size_t start;
-    size_t end = 0;
-
-    while ((start = str.find_first_not_of(delim, end)) != std::string::npos) {
-
-        end = str.find(delim, start);
-        out.push_back(str.substr(start, end - start));
-    }
-}
+using namespace Commons::IO;
+using namespace Commons::Strings;
 
 int main(int argc, char *argv[]) {
 
