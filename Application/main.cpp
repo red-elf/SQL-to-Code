@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
@@ -64,15 +63,11 @@ int main(int argc, char *argv[]) {
 
         if (logFull) {
 
-            auto pos = query.find('\n');
             auto trace = std::list<std::string>();
 
-            if (pos != std::string::npos) {
+            tokenize(query, '\n', trace);
 
-                tokenize(query, '\n', trace);
-            }
-
-            for (std::string row: trace) {
+            for (std::string &row: trace) {
 
                 v(parsingTag, row);
             }
@@ -97,7 +92,7 @@ int main(int argc, char *argv[]) {
                     auto type = statement->type();
                     if (type == StatementType::kStmtCreate) {
 
-                        const auto *create = static_cast<const hsql::CreateStatement *>(statement);
+                        const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
                         v(tableTag, create->tableName);
                     }
                 }
