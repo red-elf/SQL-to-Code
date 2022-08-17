@@ -102,9 +102,22 @@ int main(int argc, char *argv[]) {
 
                             auto columnName = column->name;
                             auto columnType = column->type;
-                            //columnType.data_type.nam
+                            auto dataType = columnType.data_type;
 
-                            v(columnTag, std::string(columnName).append(" -> "));
+                            try {
+
+                                auto commonType = getDataType(dataType);
+
+                                v(
+                                        columnTag,
+                                        std::string(columnName).append(" -> ").append(commonType)
+                                );
+
+                            } catch (std::invalid_argument &err) {
+
+                                e(errTag, err.what());
+                                std::exit(1);
+                            }
                         }
                     }
                 }
