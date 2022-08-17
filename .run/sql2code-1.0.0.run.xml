@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="sql2code-1.0.0" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-i Assets/example.sql -o cpp -l" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sql2code-1.0.0" TARGET_NAME="sql2code-1.0.0" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sql2code-1.0.0" RUN_TARGET_NAME="sql2code-1.0.0">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
