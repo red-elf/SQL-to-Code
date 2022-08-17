@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
 
     auto errTag = "error";
     auto tableTag = "table";
+    auto columnTag = "column";
     auto parsingTag = "parsing";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
@@ -87,15 +88,24 @@ int main(int argc, char *argv[]) {
                 v(parsingTag, "Statements count: " + std::to_string(count));
 
                 auto statements = result.getStatements();
-                for (const SQLStatement *statement: statements) {
+                for (const auto statement: statements) {
 
                     auto type = statement->type();
                     if (type == StatementType::kStmtCreate) {
 
                         const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
                         const auto tableName = create->tableName;
+                        const auto columns = create->columns;
 
                         v(tableTag, tableName);
+                        for (const auto column: *columns) {
+
+                            auto columnName = column->name;
+                            auto columnType = column->type;
+                            //columnType.data_type.nam
+
+                            v(columnTag, std::string(columnName).append(" -> "));
+                        }
                     }
                 }
 
