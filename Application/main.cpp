@@ -93,7 +93,9 @@ int main(int argc, char *argv[]) {
                     if (type == StatementType::kStmtCreate) {
 
                         const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
-                        v(tableTag, create->tableName);
+                        const auto tableName = create->tableName;
+
+                        v(tableTag, tableName);
                     }
                 }
 
