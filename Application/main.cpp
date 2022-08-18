@@ -61,8 +61,10 @@ int main(int argc, char *argv[]) {
         i("into --->", output);
 
         auto query = read_file(input);
+        query += "\n";
         query = removeComments(query);
-        query = removeAfter(query, "DROP");
+        query = removeBetween(query, "DROP", ";");
+        query = removeBetween(query, "CREATE INDEX", ";");
         query = removeAfter(query, "CHECK");
 
         if (logFull) {
