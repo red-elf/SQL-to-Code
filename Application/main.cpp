@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
         i("into --->", output);
 
         auto query = read_file(input);
+        query = removeComments(query);
 
         if (logFull) {
 
