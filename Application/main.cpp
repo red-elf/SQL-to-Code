@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
     auto tableTag = "table";
     auto columnTag = "column";
     auto parsingTag = "parsing";
+    auto preparingTag = "preparing";
+    auto processingTag = "processing";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
@@ -57,23 +59,43 @@ int main(int argc, char *argv[]) {
         auto input = program.get<std::string>("input");
         auto output = program.get<std::string>("output");
 
-        i("processing", input);
+        i(processingTag, input);
         i("into --->", output);
 
-        auto query = read_file(input);
-        query += "\n";
+        std::string query = read_file(input);
+
+        v(preparingTag, "Removing comments: STARTED");
         query = removeComments(query);
-        query = removeBetween(query, "DROP", ";");
-        query = removeBetween(query, "CREATE INDEX", ";");
-        query = removeAfter(query, "CHECK");
+        v(preparingTag, "Removing comments: COMPLETED");
+
+        auto rows = std::list<std::string>();
+        tokenize(query, '\n', rows);
+
+        v(preparingTag, "Cleaning up the unsupported statements: STARTED");
+        query = "";
+        for (std::string &row: rows) {
+
+            if (logFull) {
+
+                v(preparingTag, "Before prepare: " + row);
+            }
+
+            row = eraseBetween(row, "DROP", ";");
+            row = eraseBetween(row, "CREATE INDEX", ";");
+            row = eraseBetween(row, "CHECK", "))");
+
+            query.append(row);
+
+            if (logFull) {
+
+                v(preparingTag, "After prepare: " + row);
+            }
+        }
+        v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
 
         if (logFull) {
 
-            auto trace = std::list<std::string>();
-
-            tokenize(query, '\n', trace);
-
-            for (std::string &row: trace) {
+            for (std::string &row: rows) {
 
                 v(parsingTag, row);
             }
