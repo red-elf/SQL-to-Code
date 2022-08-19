@@ -37,6 +37,11 @@ int main(int argc, char *argv[]) {
             .implicit_value(true)
             .help("Log with the full details");
 
+    program.add_argument("-d", "--debug")
+            .default_value(false)
+            .implicit_value(true)
+            .help("Additional information related to the parsing and code generating");
+
     std::string epilog("Project homepage: ");
     epilog.append(getHomepage());
 
@@ -56,6 +61,7 @@ int main(int argc, char *argv[]) {
     try {
 
         auto logFull = program["--logFull"] == true;
+        auto debug = program["--debug"] == true && logFull;
         auto input = program.get<std::string>("input");
         auto output = program.get<std::string>("output");
 
@@ -75,7 +81,7 @@ int main(int argc, char *argv[]) {
         query = "";
         for (std::string &row: rows) {
 
-            if (logFull) {
+            if (debug) {
 
                 v(preparingTag, "Before prepare: " + row);
             }
@@ -89,7 +95,7 @@ int main(int argc, char *argv[]) {
                 query.append(row).append("\n");
             }
 
-            if (logFull) {
+            if (debug) {
 
                 v(preparingTag, "After prepare: " + row);
             }
