@@ -84,7 +84,10 @@ int main(int argc, char *argv[]) {
             row = eraseBetween(row, "CREATE INDEX", ";");
             row = eraseBetween(row, "CHECK", "))");
 
-            query.append(row);
+            if (row.length() > 0) {
+
+                query.append(row).append("\n");
+            }
 
             if (logFull) {
 
@@ -94,6 +97,9 @@ int main(int argc, char *argv[]) {
         v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
 
         if (logFull) {
+
+            rows.clear();
+            tokenize(query, '\n', rows);
 
             for (std::string &row: rows) {
 
