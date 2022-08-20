@@ -32,6 +32,10 @@ int main(int argc, char *argv[]) {
             .required()
             .help("The target programming language");
 
+    program.add_argument("-o", "--output")
+            .default_value(".")
+            .help("The destination output directory");
+
     program.add_argument("-l", "--logFull")
             .default_value(false)
             .implicit_value(true)
