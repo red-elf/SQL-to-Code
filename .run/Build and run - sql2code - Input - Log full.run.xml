@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Build and run - sql2code - Input - Log full" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="sh Versionable/versionable_build.sh Application .. &amp;&amp; Application/Build/sql2code-1.0.0-SNAPSHOT -i Assets/example.sql -o cpp -l" />
+    <option name="SCRIPT_TEXT" value="sh Versionable/versionable_build.sh Application .. &amp;&amp; Application/Build/sql2code-1.0.0-SNAPSHOT -i Assets/example.sql -t cpp -l" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
