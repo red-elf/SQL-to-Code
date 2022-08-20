@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
             .required()
             .help("The path for the input SQL file");
 
-    program.add_argument("-o", "--output")
+    program.add_argument("-t", "--target")
             .required()
             .help("The target programming language");
 
@@ -63,10 +63,10 @@ int main(int argc, char *argv[]) {
         auto logFull = program["--logFull"] == true;
         auto debug = program["--debug"] == true && logFull;
         auto input = program.get<std::string>("input");
-        auto output = program.get<std::string>("output");
+        auto target = program.get<std::string>("target");
 
         i(processingTag, input);
-        i("into --->", output);
+        i("into --->", target);
 
         std::string query = read_file(input);
 
