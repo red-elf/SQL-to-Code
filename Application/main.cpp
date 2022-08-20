@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
 
     program.add_argument("-i", "--input")
             .required()
+            .nargs(1, 1000)
             .help("The path for the input SQL file");
 
     program.add_argument("-t", "--target")
@@ -67,131 +68,134 @@ int main(int argc, char *argv[]) {
 
         auto logFull = program["--logFull"] == true;
         auto debug = program["--debug"] == true && logFull;
-        auto input = program.get<std::string>("input");
         auto target = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
+        auto inputs = program.get<std::vector<std::string>>("input");
 
-        i(processingTag, input);
-        i("into --->", target);
+        for (std::string &input: inputs) {
 
-        std::string query = readFile(input);
+            i(processingTag, input);
+            i("into --->", target);
 
-        v(preparingTag, "Removing comments: STARTED");
-        query = removeComments(query);
-        v(preparingTag, "Removing comments: COMPLETED");
+            std::string query = readFile(input);
 
-        auto rows = std::list<std::string>();
-        tokenize(query, '\n', rows);
+            v(preparingTag, "Removing comments: STARTED");
+            query = removeComments(query);
+            v(preparingTag, "Removing comments: COMPLETED");
 
-        v(preparingTag, "Cleaning up the unsupported statements: STARTED");
-        query = "";
-        for (std::string &row: rows) {
-
-            if (debug) {
-
-                v(preparingTag, "Before prepare: " + row);
-            }
-
-            row = eraseBetween(row, "DROP", ";");
-            row = eraseBetween(row, "CREATE INDEX", ";");
-            row = eraseBetween(row, "CHECK", "))");
-
-            if (row.length() > 0) {
-
-                query.append(row).append("\n");
-            }
-
-            if (debug) {
-
-                v(preparingTag, "After prepare: " + row);
-            }
-        }
-        v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
-
-        if (logFull) {
-
-            rows.clear();
+            auto rows = std::list<std::string>();
             tokenize(query, '\n', rows);
 
-            v(parsingTag, "The final sql:");
-
+            v(preparingTag, "Cleaning up the unsupported statements: STARTED");
+            query = "";
             for (std::string &row: rows) {
 
-                v(parsingTag, row);
+                if (debug) {
+
+                    v(preparingTag, "Before prepare: " + row);
+                }
+
+                row = eraseBetween(row, "DROP", ";");
+                row = eraseBetween(row, "CREATE INDEX", ";");
+                row = eraseBetween(row, "CHECK", "))");
+
+                if (row.length() > 0) {
+
+                    query.append(row).append("\n");
+                }
+
+                if (debug) {
+
+                    v(preparingTag, "After prepare: " + row);
+                }
             }
-        }
+            v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
 
-        std::string finalSql = output.append("/").append("final.sql");
-        d(finalSqlTag, finalSql);
-        writeFile(query, finalSql);
+            if (logFull) {
 
-        SQLParserResult result;
-        SQLParser::parseSQLString(query, &result);
+                rows.clear();
+                tokenize(query, '\n', rows);
 
-        if (result.isValid()) {
+                v(parsingTag, "The final sql:");
 
-            auto count = result.size();
+                for (std::string &row: rows) {
 
-            v(parsingTag, "Completed");
+                    v(parsingTag, row);
+                }
+            }
 
-            if (count > 0) {
+            std::string finalSql = output.append("/").append("final.sql");
+            d(finalSqlTag, finalSql);
+            writeFile(query, finalSql);
 
-                v(parsingTag, "Statements count: " + std::to_string(count));
+            SQLParserResult result;
+            SQLParser::parseSQLString(query, &result);
 
-                auto statements = result.getStatements();
-                for (const auto statement: statements) {
+            if (result.isValid()) {
 
-                    auto type = statement->type();
-                    if (type == StatementType::kStmtCreate) {
+                auto count = result.size();
 
-                        const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
-                        const auto tableName = create->tableName;
-                        const auto columns = create->columns;
+                v(parsingTag, "Completed");
 
-                        d(tableTag, tableName);
-                        for (const auto column: *columns) {
+                if (count > 0) {
 
-                            auto columnName = column->name;
-                            auto columnType = column->type;
-                            auto dataType = columnType.data_type;
+                    v(parsingTag, "Statements count: " + std::to_string(count));
 
-                            try {
+                    auto statements = result.getStatements();
+                    for (const auto statement: statements) {
 
-                                auto commonType = dataTypeToString(dataType);
+                        auto type = statement->type();
+                        if (type == StatementType::kStmtCreate) {
 
-                                v(
-                                        columnTag,
+                            const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
+                            const auto tableName = create->tableName;
+                            const auto columns = create->columns;
 
-                                        std::string(tableName).append(" :: ")
-                                                .append(columnName).append(" -> ").append(commonType)
-                                );
+                            d(tableTag, tableName);
+                            for (const auto column: *columns) {
 
-                            } catch (std::invalid_argument &err) {
+                                auto columnName = column->name;
+                                auto columnType = column->type;
+                                auto dataType = columnType.data_type;
 
-                                e(errTag, err.what());
-                                std::exit(1);
+                                try {
+
+                                    auto commonType = dataTypeToString(dataType);
+
+                                    v(
+                                            columnTag,
+
+                                            std::string(tableName).append(" :: ")
+                                                    .append(columnName).append(" -> ").append(commonType)
+                                    );
+
+                                } catch (std::invalid_argument &err) {
+
+                                    e(errTag, err.what());
+                                    std::exit(1);
+                                }
                             }
                         }
                     }
+
+                } else {
+
+                    w(parsingTag, "No items");
                 }
 
             } else {
 
-                w(parsingTag, "No items");
+                e(errTag, "Error while parsing file " + finalSql);
+
+                if (logFull) {
+
+                    e(errTag, result.errorMsg());
+                    e(errTag, "Line: " + std::to_string(result.errorLine()));
+                    e(errTag, "Column: " + std::to_string(result.errorColumn()));
+                }
+
+                std::exit(1);
             }
-
-        } else {
-
-            e(errTag, "Error while parsing file " + finalSql);
-
-            if (logFull) {
-
-                e(errTag, result.errorMsg());
-                e(errTag, "Line: " + std::to_string(result.errorLine()));
-                e(errTag, "Column: " + std::to_string(result.errorColumn()));
-            }
-
-            std::exit(1);
         }
 
     } catch (std::logic_error &err) {
