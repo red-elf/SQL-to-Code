@@ -113,6 +113,8 @@ int main(int argc, char *argv[]) {
             rows.clear();
             tokenize(query, '\n', rows);
 
+            v(parsingTag, "The final sql:");
+
             for (std::string &row: rows) {
 
                 v(parsingTag, row);
