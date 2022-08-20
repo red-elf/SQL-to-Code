@@ -161,8 +161,9 @@ int main(int argc, char *argv[]) {
 
                                 v(
                                         columnTag,
-                                        std::string(columnName).append(" -> ").append(commonType)
-                                                .append(" @ ").append(tableName)
+
+                                        std::string(tableName).append(" :: ")
+                                                .append(columnName).append(" -> ").append(commonType)
                                 );
 
                             } catch (std::invalid_argument &err) {
