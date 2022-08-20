@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     auto tableTag = "table";
     auto columnTag = "column";
     auto parsingTag = "parsing";
-    auto finalSqlTag = "work file";
+    auto workSqlTag = "work file";
     auto preparingTag = "preparing";
     auto processingTag = "processing";
 
@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
 
     try {
 
+        auto firstInputProcessed = false;
         auto logFull = program["--logFull"] == true;
         auto debug = program["--debug"] == true && logFull;
         auto target = program.get<std::string>("target");
@@ -78,6 +79,12 @@ int main(int argc, char *argv[]) {
             i("into --->", target);
 
             std::string query = readFile(input);
+
+            if (query.length() == 0) {
+
+                e(errTag, "Nothing loaded from the input file: " + input);
+                std::exit(1);
+            }
 
             v(preparingTag, "Removing comments: STARTED");
             query = removeComments(query);
@@ -124,9 +131,18 @@ int main(int argc, char *argv[]) {
                 }
             }
 
-            std::string finalSql = output.append("/").append("final.sql");
-            d(finalSqlTag, finalSql);
-            writeFile(query, finalSql);
+            std::string finalSql = output.append("/").append("work.sql");
+            d(workSqlTag, finalSql);
+
+            if (firstInputProcessed) {
+
+                appendToFile(query, finalSql);
+
+            } else {
+
+                firstInputProcessed  = true;
+                writeFile(query, finalSql);
+            }
 
             SQLParserResult result;
             SQLParser::parseSQLString(query, &result);
