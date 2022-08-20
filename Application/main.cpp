@@ -67,15 +67,12 @@ int main(int argc, char *argv[]) {
 
     try {
 
-        auto firstInputProcessed = false;
+        auto processed = 0;
         auto logFull = program["--logFull"] == true;
         auto debug = program["--debug"] == true && logFull;
         auto target = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
-
-        const std::string workFile = output.append("/").append("work.sql");
-        d(workFileTag, workFile);
 
         for (std::string &input: inputs) {
 
@@ -140,15 +137,14 @@ int main(int argc, char *argv[]) {
                 }
             }
 
-            if (firstInputProcessed) {
+            const std::string workFile = (output + "/").append("work.")
+                    .append(std::to_string(processed)).append(".sql");
 
-                appendToFile(query, workFile);
+            d(workFileTag, workFile);
 
-            } else {
+            writeFile(query, workFile);
+            processed++;
 
-                firstInputProcessed  = true;
-                writeFile(query, workFile);
-            }
             d(workFileTag, (workFile + " << ").append(input));
 
             SQLParserResult result;
