@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
 
     auto errTag = "error";
     auto tableTag = "table";
+    auto inputTag = "input";
     auto columnTag = "column";
     auto parsingTag = "parsing";
     auto workFileTag = "work file";
@@ -75,6 +76,11 @@ int main(int argc, char *argv[]) {
 
         auto workFile = output.append("/").append("work.sql");
         d(workFileTag, workFile);
+
+        for (std::string &input: inputs) {
+
+            i(inputTag, input);
+        }
 
         for (std::string &input: inputs) {
 
