@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
 
-        auto workFile = output.append("/").append("work.sql");
+        const std::string workFile = output.append("/").append("work.sql");
         d(workFileTag, workFile);
 
         for (std::string &input: inputs) {
@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
                 firstInputProcessed  = true;
                 writeFile(query, workFile);
             }
-            d(workFileTag, workFile.append(" << ").append(input));
+            d(workFileTag, (workFile + " << ").append(input));
 
             SQLParserResult result;
             SQLParser::parseSQLString(query, &result);
