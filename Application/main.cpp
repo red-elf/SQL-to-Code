@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     auto tableTag = "table";
     auto columnTag = "column";
     auto parsingTag = "parsing";
+    auto finalSqlTag = "work file";
     auto preparingTag = "preparing";
     auto processingTag = "processing";
 
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]) {
             .help("The target programming language");
 
     program.add_argument("-o", "--output")
-            .default_value(".")
+            .required()
             .help("The destination output directory");
 
     program.add_argument("-l", "--logFull")
@@ -73,7 +74,7 @@ int main(int argc, char *argv[]) {
         i(processingTag, input);
         i("into --->", target);
 
-        std::string query = read_file(input);
+        std::string query = readFile(input);
 
         v(preparingTag, "Removing comments: STARTED");
         query = removeComments(query);
@@ -118,6 +119,10 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        std::string finalSql = output.append("/").append("final.sql");
+        d(finalSqlTag, finalSql);
+        writeFile(query, finalSql);
+
         SQLParserResult result;
         SQLParser::parseSQLString(query, &result);
 
@@ -141,7 +146,7 @@ int main(int argc, char *argv[]) {
                         const auto tableName = create->tableName;
                         const auto columns = create->columns;
 
-                        v(tableTag, tableName);
+                        d(tableTag, tableName);
                         for (const auto column: *columns) {
 
                             auto columnName = column->name;
@@ -150,11 +155,12 @@ int main(int argc, char *argv[]) {
 
                             try {
 
-                                auto commonType = getDataType(dataType);
+                                auto commonType = dataTypeToString(dataType);
 
                                 v(
                                         columnTag,
                                         std::string(columnName).append(" -> ").append(commonType)
+                                                .append(" @ ").append(tableName)
                                 );
 
                             } catch (std::invalid_argument &err) {

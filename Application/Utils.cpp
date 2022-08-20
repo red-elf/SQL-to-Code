@@ -3,7 +3,7 @@
 //
 #include "Utils.h"
 
-std::string Utils::getDataType(DataType &dataType) {
+std::string Utils::dataTypeToString(DataType &dataType) {
 
     switch (dataType) {
         case DataType::BOOLEAN:

@@ -69,7 +69,7 @@ namespace Utils {
         log(tag, message, level);
     }
 
-    std::string getDataType(DataType &dataType);
+    std::string dataTypeToString(DataType &dataType);
 }
 
 #endif //_UTILS_H
