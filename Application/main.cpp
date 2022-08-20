@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
         auto debug = program["--debug"] == true && logFull;
         auto input = program.get<std::string>("input");
         auto target = program.get<std::string>("target");
+        auto output = program.get<std::string>("output");
 
         i(processingTag, input);
         i("into --->", target);
