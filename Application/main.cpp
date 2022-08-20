@@ -182,7 +182,7 @@ int main(int argc, char *argv[]) {
 
         } else {
 
-            e(errTag, "Error while parsing file " + input);
+            e(errTag, "Error while parsing file " + finalSql);
 
             if (logFull) {
 
