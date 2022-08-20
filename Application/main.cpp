@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     auto tableTag = "table";
     auto columnTag = "column";
     auto parsingTag = "parsing";
-    auto workSqlTag = "work file";
+    auto workFileTag = "work file";
     auto preparingTag = "preparing";
     auto processingTag = "processing";
 
@@ -72,6 +72,9 @@ int main(int argc, char *argv[]) {
         auto target = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
+
+        auto workFile = output.append("/").append("work.sql");
+        d(workFileTag, workFile);
 
         for (std::string &input: inputs) {
 
@@ -131,18 +134,16 @@ int main(int argc, char *argv[]) {
                 }
             }
 
-            std::string finalSql = output.append("/").append("work.sql");
-            d(workSqlTag, finalSql);
-
             if (firstInputProcessed) {
 
-                appendToFile(query, finalSql);
+                appendToFile(query, workFile);
 
             } else {
 
                 firstInputProcessed  = true;
-                writeFile(query, finalSql);
+                writeFile(query, workFile);
             }
+            d(workFileTag, workFile.append(" << ").append(input));
 
             SQLParserResult result;
             SQLParser::parseSQLString(query, &result);
@@ -201,7 +202,7 @@ int main(int argc, char *argv[]) {
 
             } else {
 
-                e(errTag, "Error while parsing file " + finalSql);
+                e(errTag, "Error while parsing file " + workFile);
 
                 if (logFull) {
 
