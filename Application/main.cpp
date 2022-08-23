@@ -108,9 +108,14 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
+                /*
+                 * FIXME: If it ends with ',', remove it, clean it up and re-append:
+                 * */
                 row = eraseBetween(row, "DROP", ";");
                 row = eraseBetween(row, "CREATE INDEX", ";");
+                row = eraseBetween(row, "CHECK", ")),");
                 row = eraseBetween(row, "CHECK", "))");
+                row = eraseBetween(row, "UNIQUE", "ABORT");
 
                 if (row.length() > 0) {
 
