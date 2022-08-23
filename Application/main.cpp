@@ -108,6 +108,7 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
+                auto comma = false;
                 /*
                  * FIXME: If it ends with ',', remove it, clean it up and re-append:
                  * */
@@ -119,7 +120,17 @@ int main(int argc, char *argv[]) {
 
                 if (row.length() > 0) {
 
-                    query.append(row).append("\n");
+                    query.append(row);
+
+                    if (comma) {
+
+                        query.append(", ")
+                                .append("\n");
+
+                    } else {
+
+                        query.append("\n");
+                    }
                 }
 
                 if (debug) {
