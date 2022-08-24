@@ -109,9 +109,9 @@ int main(int argc, char *argv[]) {
                 }
 
                 auto comma = false;
-                /*
-                 * FIXME: If it ends with ',', remove it, clean it up and re-append:
-                 * */
+
+                row = trim(row);
+                row = trim(row, " ");
                 row = eraseBetween(row, "DROP", ";");
                 row = eraseBetween(row, "CREATE INDEX", ";");
                 row = eraseBetween(row, "CHECK", ")),");
