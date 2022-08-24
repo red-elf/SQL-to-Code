@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
@@ -129,9 +130,11 @@ int main(int argc, char *argv[]) {
             auto rows = std::vector<std::string>();
 
             tokenize(query, '\n', rows);
-            query = "";
 
             v(preparingTag, "Cleaning up the unsupported statements: STARTED");
+
+            auto index = 0;
+            std::vector<std::string> processedRows;
 
             for (std::string &row: rows) {
 
@@ -164,8 +167,10 @@ int main(int argc, char *argv[]) {
                         row.append(",");
                     }
 
-                    query.append(row).append("\n");
+                    processedRows.push_back(row.append("\n"));
                 }
+
+                index++;
 
                 if (debug) {
 
@@ -177,14 +182,16 @@ int main(int argc, char *argv[]) {
 
             if (logFull) {
 
-                rows.clear();
-                tokenize(query, '\n', rows);
-
                 v(parsingTag, "The final sql:");
+            }
 
-                for (std::string &row: rows) {
+            query = "";
+            for (std::string &row: processedRows) {
 
-                    v(parsingTag, row);
+                query.append(row);
+                if (logFull) {
+
+                    v(parsingTag, trim(row,"\n"));
                 }
             }
 
