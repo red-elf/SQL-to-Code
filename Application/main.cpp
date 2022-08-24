@@ -17,12 +17,7 @@ std::string trimRow(std::string &row) {
 
     row = trim(row);
     row = trim(row, " ");
-
-    return row;
-}
-
-std::string stripRow(std::string &row) {
-
+    row = trim(row, ",");
     row = eraseBetween(row, "DROP", ";");
     row = eraseBetween(row, "CREATE INDEX", ";");
     row = eraseBetween(row, "CHECK", ")),");
@@ -30,15 +25,6 @@ std::string stripRow(std::string &row) {
     row = eraseBetween(row, "UNIQUE", "ABORT");
 
     return row;
-}
-
-bool prepareRow(std::string &row) {
-
-    row = trimRow(row);
-    auto comma = hasEnding(row, ",");
-    row = stripRow(row);
-
-    return comma;
 }
 
 std::string alignRow(std::string &row) {
@@ -139,13 +125,13 @@ int main(int argc, char *argv[]) {
             query = removeComments(query);
             v(preparingTag, "Removing comments: COMPLETED");
 
+            auto open = false;
             auto rows = std::vector<std::string>();
+
             tokenize(query, '\n', rows);
+            query = "";
 
             v(preparingTag, "Cleaning up the unsupported statements: STARTED");
-
-            query = "";
-            auto index = 0;
 
             for (std::string &row: rows) {
 
@@ -154,42 +140,28 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
-                auto isEnclosed = prepareRow(row);
+                row = trimRow(row);
 
                 if (row.length() > 0) {
 
                     row = alignRow(row);
 
-                    auto isLastInEnclosed = false;
+                    auto opening = "(";
+                    auto closing = ");";
 
-                    auto nextIndex = index;
-                    while (nextIndex++ && nextIndex < rows.size()) {
+                    if (row == opening) {
 
-                        auto nextRow = rows.at(nextIndex);
-                        auto isNextRowEnclosed = prepareRow(nextRow);
-                        isLastInEnclosed = hasBeginning(nextRow, ");");
-
-                        if (isLastInEnclosed) {
-
-                            break;
-                        }
+                        open = true;
                     }
 
-                    if (isEnclosed && !hasEnding(row, ",") && !isLastInEnclosed) {
+                    if (row == closing) {
+
+                        open = false;
+                    }
+
+                    if (open && row != opening && row != closing) {
 
                         row.append(",");
-                    }
-
-                    if (isLastInEnclosed) {
-
-                        d(parsingTag, row);
-                    }
-
-                    if (isLastInEnclosed && hasEnding(row, " ,")) {
-
-                        e(parsingTag, row);
-
-                        row = removeAfter(row, ",");
                     }
 
                     query.append(row).append("\n");
@@ -199,8 +171,6 @@ int main(int argc, char *argv[]) {
 
                     v(preparingTag, "After prepare: " + row);
                 }
-
-                index++;
             }
 
             v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
