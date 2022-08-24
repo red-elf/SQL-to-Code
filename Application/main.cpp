@@ -13,6 +13,34 @@ using namespace hsql;
 using namespace Commons::IO;
 using namespace Commons::Strings;
 
+std::string trimRow(std::string& row){
+
+    row = trim(row);
+    row = trim(row, " ");
+
+    return row;
+}
+
+std::string stripRow(std::string& row){
+
+    row = eraseBetween(row, "DROP", ";");
+    row = eraseBetween(row, "CREATE INDEX", ";");
+    row = eraseBetween(row, "CHECK", ")),");
+    row = eraseBetween(row, "CHECK", "))");
+    row = eraseBetween(row, "UNIQUE", "ABORT");
+
+    return row;
+}
+
+bool prepareRow(std::string& row) {
+
+    row = trimRow(row);
+    auto comma = hasEnding(row, ",");
+    row = stripRow(row);
+
+    return comma;
+}
+
 int main(int argc, char *argv[]) {
 
     auto errTag = "error";
@@ -111,16 +139,7 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
-                row = trim(row);
-                row = trim(row, " ");
-
-                auto comma = hasEnding(row, ",");
-
-                row = eraseBetween(row, "DROP", ";");
-                row = eraseBetween(row, "CREATE INDEX", ";");
-                row = eraseBetween(row, "CHECK", ")),");
-                row = eraseBetween(row, "CHECK", "))");
-                row = eraseBetween(row, "UNIQUE", "ABORT");
+                auto comma = prepareRow(row);
 
                 if (row.length() > 0) {
 
@@ -128,35 +147,42 @@ int main(int argc, char *argv[]) {
                                      !hasBeginning(row, ")") &&
                                      !hasBeginning(row, "CREATE");
 
+                    std::string toAppend;
+
                     if (appendTab) {
 
-                        query.append("    ");
+                        toAppend.append("    ");
                     }
 
-                    query.append(row);
+                    toAppend.append(row);
 
                     auto isLastInEnclosed = false;
-                    auto nextIndex = index + 1;
 
+                    auto nextIndex = index + 1;
                     if (nextIndex < rows.size()) {
 
                         auto nextRow = rows.at(nextIndex);
                         isLastInEnclosed = hasBeginning(nextRow, ");");
-
-                        // FIXME:
-                        if (isLastInEnclosed ) { // && debug
-
-                            v(parsingTag, "Last in enclosed: " + row);
-                            v(parsingTag, "Closing: " + nextRow);
-                        }
                     }
 
                     if (comma && !hasEnding(row, ",") && !isLastInEnclosed) {
 
-                        query.append(",");
+                        toAppend.append(",");
                     }
 
-                    query.append("\n");
+                    if (isLastInEnclosed) {
+
+                        d(parsingTag, toAppend);
+                    }
+
+                    if (isLastInEnclosed && hasEnding(row, " ,")) {
+
+                        e(parsingTag, row);
+
+                        toAppend = removeAfter(row, ",");
+                    }
+
+                    query.append(toAppend).append("\n");
                 }
 
                 if (debug) {
