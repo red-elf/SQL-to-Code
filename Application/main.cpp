@@ -121,6 +121,15 @@ int main(int argc, char *argv[]) {
 
                 if (row.length() > 0) {
 
+                    auto appendTab = !hasBeginning(row, "(") &&
+                                     !hasBeginning(row, ")") &&
+                                     !hasBeginning(row, "CREATE");
+
+                    if (appendTab) {
+
+                        query.append("    ");
+                    }
+
                     query.append(row);
 
                     if (comma && !hasEnding(row, ",")) {
