@@ -162,11 +162,17 @@ int main(int argc, char *argv[]) {
 
                     auto isLastInEnclosed = false;
 
-                    auto nextIndex = index + 1;
-                    if (nextIndex < rows.size()) {
+                    auto nextIndex = index;
+                    while (nextIndex++ && nextIndex < rows.size()) {
 
                         auto nextRow = rows.at(nextIndex);
+                        auto isNextRowEnclosed = prepareRow(nextRow);
                         isLastInEnclosed = hasBeginning(nextRow, ");");
+
+                        if (isLastInEnclosed) {
+
+                            break;
+                        }
                     }
 
                     if (isEnclosed && !hasEnding(row, ",") && !isLastInEnclosed) {
