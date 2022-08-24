@@ -666,7 +666,7 @@ CREATE TABLE tickets
     estimation       REAL    NOT NULL,
     story_points     INTEGER NOT NULL,
     creator          TEXT    NOT NULL,
-    deletedZZZ          BOOLEAN NOT NULL CHECK (deleted IN (0, 1)),
+    deleted          BOOLEAN NOT NULL CHECK (deleted IN (0, 1)),
     UNIQUE (ticket_number, project_id) ON CONFLICT ABORT
 );
 
@@ -1139,7 +1139,7 @@ CREATE TABLE cycles
       Prent cycle id.
      */
     cycle_id    TEXT    NOT NULL UNIQUE,
-    type        INTEGER NOT NULL CHECK ( type IN (1000, 100, 10)),
+    typeZZ        INTEGER NOT NULL CHECK ( type IN (1000, 100, 10)),
     deleted     BOOLEAN NOT NULL CHECK (deleted IN (0, 1))
 );
 
