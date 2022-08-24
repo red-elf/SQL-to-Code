@@ -144,6 +144,13 @@ int main(int argc, char *argv[]) {
 
                         auto nextRow = rows.at(nextIndex);
                         isLastInEnclosed = hasBeginning(nextRow, ");");
+
+                        // FIXME:
+                        if (isLastInEnclosed ) { // && debug
+
+                            v(parsingTag, "Line: " + std::to_string(index) + ", last in enclosed: " + row);
+                            v(parsingTag, "Line: " + std::to_string(index) + ", closing: " + nextRow);
+                        }
                     }
 
                     if (comma && !hasEnding(row, ",") && !isLastInEnclosed) {
