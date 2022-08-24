@@ -106,8 +106,6 @@ int main(int argc, char *argv[]) {
 
             for (std::string &row: rows) {
 
-                index++;
-
                 if (debug) {
 
                     v(preparingTag, "Before prepare: " + row);
@@ -148,8 +146,8 @@ int main(int argc, char *argv[]) {
                         // FIXME:
                         if (isLastInEnclosed ) { // && debug
 
-                            v(parsingTag, "Line: " + std::to_string(index) + ", last in enclosed: " + row);
-                            v(parsingTag, "Line: " + std::to_string(index) + ", closing: " + nextRow);
+                            v(parsingTag, "Last in enclosed: " + row);
+                            v(parsingTag, "Closing: " + nextRow);
                         }
                     }
 
@@ -165,7 +163,10 @@ int main(int argc, char *argv[]) {
 
                     v(preparingTag, "After prepare: " + row);
                 }
+
+                index++;
             }
+
             v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
 
             if (logFull) {
