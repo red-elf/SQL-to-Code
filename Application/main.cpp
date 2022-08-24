@@ -96,12 +96,17 @@ int main(int argc, char *argv[]) {
             query = removeComments(query);
             v(preparingTag, "Removing comments: COMPLETED");
 
-            auto rows = std::list<std::string>();
+            auto rows = std::vector<std::string>();
             tokenize(query, '\n', rows);
 
             v(preparingTag, "Cleaning up the unsupported statements: STARTED");
+
             query = "";
+            auto index = 0;
+
             for (std::string &row: rows) {
+
+                index++;
 
                 if (debug) {
 
@@ -132,7 +137,16 @@ int main(int argc, char *argv[]) {
 
                     query.append(row);
 
-                    if (comma && !hasEnding(row, ",")) {
+                    auto isLastInEnclosed = false;
+                    auto nextIndex = index + 1;
+
+                    if (nextIndex < rows.size()) {
+
+                        auto nextRow = rows.at(nextIndex);
+                        isLastInEnclosed = hasBeginning(nextRow, ");");
+                    }
+
+                    if (comma && !hasEnding(row, ",") && !isLastInEnclosed) {
 
                         query.append(",");
                     }
