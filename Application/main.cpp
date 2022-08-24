@@ -13,7 +13,7 @@ using namespace hsql;
 using namespace Commons::IO;
 using namespace Commons::Strings;
 
-std::string trimRow(std::string& row){
+std::string trimRow(std::string &row) {
 
     row = trim(row);
     row = trim(row, " ");
@@ -21,7 +21,7 @@ std::string trimRow(std::string& row){
     return row;
 }
 
-std::string stripRow(std::string& row){
+std::string stripRow(std::string &row) {
 
     row = eraseBetween(row, "DROP", ";");
     row = eraseBetween(row, "CREATE INDEX", ";");
@@ -32,13 +32,28 @@ std::string stripRow(std::string& row){
     return row;
 }
 
-bool prepareRow(std::string& row) {
+bool prepareRow(std::string &row) {
 
     row = trimRow(row);
     auto comma = hasEnding(row, ",");
     row = stripRow(row);
 
     return comma;
+}
+
+std::string alignRow(std::string &row) {
+
+    auto appendTab = !hasBeginning(row, "(") &&
+                     !hasBeginning(row, ")") &&
+                     !hasBeginning(row, "CREATE");
+
+    std::string toAppend;
+
+    if (appendTab) {
+
+        return "    " + row;
+    }
+    return row;
 }
 
 int main(int argc, char *argv[]) {
@@ -139,22 +154,11 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
-                auto comma = prepareRow(row);
+                auto isEnclosed = prepareRow(row);
 
                 if (row.length() > 0) {
 
-                    auto appendTab = !hasBeginning(row, "(") &&
-                                     !hasBeginning(row, ")") &&
-                                     !hasBeginning(row, "CREATE");
-
-                    std::string toAppend;
-
-                    if (appendTab) {
-
-                        toAppend.append("    ");
-                    }
-
-                    toAppend.append(row);
+                    row = alignRow(row);
 
                     auto isLastInEnclosed = false;
 
@@ -165,24 +169,24 @@ int main(int argc, char *argv[]) {
                         isLastInEnclosed = hasBeginning(nextRow, ");");
                     }
 
-                    if (comma && !hasEnding(row, ",") && !isLastInEnclosed) {
+                    if (isEnclosed && !hasEnding(row, ",") && !isLastInEnclosed) {
 
-                        toAppend.append(",");
+                        row.append(",");
                     }
 
                     if (isLastInEnclosed) {
 
-                        d(parsingTag, toAppend);
+                        d(parsingTag, row);
                     }
 
                     if (isLastInEnclosed && hasEnding(row, " ,")) {
 
                         e(parsingTag, row);
 
-                        toAppend = removeAfter(row, ",");
+                        row = removeAfter(row, ",");
                     }
 
-                    query.append(toAppend).append("\n");
+                    query.append(row).append("\n");
                 }
 
                 if (debug) {
