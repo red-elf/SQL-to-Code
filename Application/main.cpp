@@ -108,10 +108,11 @@ int main(int argc, char *argv[]) {
                     v(preparingTag, "Before prepare: " + row);
                 }
 
-                auto comma = false;
-
                 row = trim(row);
                 row = trim(row, " ");
+
+                auto comma = hasEnding(row, ",");
+
                 row = eraseBetween(row, "DROP", ";");
                 row = eraseBetween(row, "CREATE INDEX", ";");
                 row = eraseBetween(row, "CHECK", ")),");
@@ -122,15 +123,12 @@ int main(int argc, char *argv[]) {
 
                     query.append(row);
 
-                    if (comma) {
+                    if (comma && !hasEnding(row, ",")) {
 
-                        query.append(", ")
-                                .append("\n");
-
-                    } else {
-
-                        query.append("\n");
+                        query.append(",");
                     }
+
+                    query.append("\n");
                 }
 
                 if (debug) {
