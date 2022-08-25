@@ -161,16 +161,10 @@ int main(int argc, char *argv[]) {
 
                         open = false;
 
-                        auto previousIndex = index - 1;
-                        if (previousIndex >= 0) {
-
-                            // FIXME:
-                            auto previousRow = rows.at(previousIndex);
-                            e(parsingTag, trim(previousRow, "\n"));
-                            previousRow = removeAfter(previousRow, ",");
-                            rows.at(previousIndex) = previousRow;
-                            e(std::string(parsingTag) + " ->", trim(previousRow, "\n"));
-                        }
+                        auto previousIndex = processedRows.size() - 1;
+                        auto previousRow = processedRows.at(previousIndex);
+                        previousRow = removeAfter(previousRow, ",");
+                        processedRows.at(previousIndex) = previousRow;
                     }
 
                     if (open && row != opening && row != closing) {
