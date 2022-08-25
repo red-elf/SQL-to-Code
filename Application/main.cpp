@@ -133,7 +133,6 @@ int main(int argc, char *argv[]) {
 
             v(preparingTag, "Cleaning up the unsupported statements: STARTED");
 
-            auto index = 0;
             std::vector<std::string> processedRows;
 
             for (std::string &row: rows) {
@@ -174,8 +173,6 @@ int main(int argc, char *argv[]) {
 
                     processedRows.push_back(row.append("\n"));
                 }
-
-                index++;
 
                 if (debug) {
 
