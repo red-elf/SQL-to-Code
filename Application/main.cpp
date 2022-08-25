@@ -207,6 +207,9 @@ int main(int argc, char *argv[]) {
 
             d(workFileTag, (workFile + " << ").append(input));
 
+            rows.clear();
+            processedRows.clear();
+
             SQLParserResult result;
             SQLParser::parseSQLString(query, &result);
 
