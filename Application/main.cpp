@@ -226,35 +226,40 @@ int main(int argc, char *argv[]) {
                     auto statements = result.getStatements();
                     for (const auto statement: statements) {
 
-                        auto type = statement->type();
-                        if (type == StatementType::kStmtCreate) {
+                        if (statement->isType(hsql::kStmtCreate)) {
 
                             const auto *create = dynamic_cast<const hsql::CreateStatement *>(statement);
-                            const auto tableName = create->tableName;
-                            const auto columns = create->columns;
+                            const auto createType = create->type;
 
-                            d(tableTag, tableName);
-                            for (const auto column: *columns) {
+                            if (createType == CreateType::kCreateTable) {
 
-                                auto columnName = column->name;
-                                auto columnType = column->type;
-                                auto dataType = columnType.data_type;
+                                auto tableName = create->tableName;
+                                auto columns = create->columns;
 
-                                try {
+                                d(tableTag, tableName);
 
-                                    auto commonType = dataTypeToString(dataType);
+                                for (const auto column: *columns) {
 
-                                    v(
-                                            columnTag,
+                                    auto columnName = column->name;
+                                    auto columnType = column->type;
+                                    auto dataType = columnType.data_type;
 
-                                            std::string(tableName).append(" :: ")
-                                                    .append(columnName).append(" -> ").append(commonType)
-                                    );
+                                    try {
 
-                                } catch (std::invalid_argument &err) {
+                                        auto commonType = dataTypeToString(dataType);
 
-                                    e(errTag, err.what());
-                                    std::exit(1);
+                                        v(
+                                                columnTag,
+
+                                                std::string(tableName).append(" :: ")
+                                                        .append(columnName).append(" -> ").append(commonType)
+                                        );
+
+                                    } catch (std::invalid_argument &err) {
+
+                                        e(errTag, err.what());
+                                        std::exit(1);
+                                    }
                                 }
                             }
                         }
