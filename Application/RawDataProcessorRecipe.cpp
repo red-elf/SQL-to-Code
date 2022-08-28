@@ -3,3 +3,9 @@
 //
 
 #include "RawDataProcessorRecipe.h"
+
+const std::string RawDataProcessorRecipe::process(std::string &input) {
+
+
+    return input;
+}
