@@ -6,12 +6,11 @@
 #define _RAWDATAPROCESSOR_H
 
 #include "string"
+#include "IProcessor.h"
 
-class RawDataProcessor {
+class RawDataProcessor : public IProcessor<std::string, const std::string> {
 
-public:
-
-    const std::string process();
+    [[nodiscard]] const std::string process(std::string &input) override;
 };
 
 

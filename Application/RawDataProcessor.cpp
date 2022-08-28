@@ -4,7 +4,7 @@
 
 #include "RawDataProcessor.h"
 
-const std::string RawDataProcessor::process() {
+const std::string RawDataProcessor::process(std::string &input) {
 
     return "";
 }
