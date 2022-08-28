@@ -2,12 +2,12 @@
 // Created by milosvasic on 28.08.22.
 //
 
-#include "RawDataProcessorRecipe.h"
+#include "StringDataProcessorRecipe.h"
 
 using namespace Utils;
 using namespace Commons::Strings;
 
-std::string RawDataProcessorRecipe::trimRow(std::string &row) {
+std::string StringDataProcessorRecipe::trimRow(std::string &row) {
 
     row = trim(row);
     row = trim(row, " ");
@@ -21,7 +21,7 @@ std::string RawDataProcessorRecipe::trimRow(std::string &row) {
     return row;
 }
 
-std::string RawDataProcessorRecipe::alignRow(std::string &row) {
+std::string StringDataProcessorRecipe::alignRow(std::string &row) {
 
     auto appendTab = !hasBeginning(row, "(") &&
                      !hasBeginning(row, ")") &&
@@ -36,7 +36,7 @@ std::string RawDataProcessorRecipe::alignRow(std::string &row) {
     return row;
 }
 
-std::string RawDataProcessorRecipe::process(std::string &query) {
+std::string StringDataProcessorRecipe::process(std::string &query) {
 
     v(preparingTag, "Removing comments: STARTED");
     query = removeComments(query);

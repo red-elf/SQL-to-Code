@@ -2,15 +2,15 @@
 // Created by milosvasic on 28.08.22.
 //
 
-#ifndef _RAWDATAPROCESSORRECIPE_H
-#define _RAWDATAPROCESSORRECIPE_H
+#ifndef _STRINGDATAPROCESSORRECIPE_H
+#define _STRINGDATAPROCESSORRECIPE_H
 
 #include "string"
 #include "Commons.h"
 #include "Utils.h"
 #include "IProcessor.h"
 
-class RawDataProcessorRecipe : public IProcessor<std::string, std::string> {
+class StringDataProcessorRecipe : public IProcessor<std::string, std::string> {
 
 public:
 
@@ -26,4 +26,4 @@ private:
 };
 
 
-#endif //_RAWDATAPROCESSORRECIPE_H
+#endif //_STRINGDATAPROCESSORRECIPE_H

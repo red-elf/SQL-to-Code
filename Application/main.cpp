@@ -8,7 +8,7 @@
 #include "VersionInfo.h"
 #include "SQLParser.h"
 #include "StringDataProcessor.h"
-#include "RawDataProcessorRecipe.h"
+#include "StringDataProcessorRecipe.h"
 #include "sql/SQLStatement.h"
 
 using namespace Utils;
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
                 std::exit(1);
             }
 
-            RawDataProcessorRecipe recipe;
+            StringDataProcessorRecipe recipe;
             StringDataProcessor processor;
 
             if (!processor.doRegister(&recipe)) {
