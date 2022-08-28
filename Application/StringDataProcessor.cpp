@@ -4,9 +4,9 @@
 
 #include <algorithm>
 
-#include "RawDataProcessor.h"
+#include "StringDataProcessor.h"
 
-const std::string RawDataProcessor::process(std::string &input) {
+const std::string StringDataProcessor::process(std::string &input) {
 
     for (IProcessor<std::string, const std::string> *processor: recipes) {
 
@@ -15,7 +15,7 @@ const std::string RawDataProcessor::process(std::string &input) {
     return input;
 }
 
-bool RawDataProcessor::doRegister(IProcessor<std::string, const std::string> *what) {
+bool StringDataProcessor::doRegister(IProcessor<std::string, const std::string> *what) {
 
     if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
 
@@ -33,7 +33,7 @@ bool RawDataProcessor::doRegister(IProcessor<std::string, const std::string> *wh
     return false;
 }
 
-bool RawDataProcessor::doUnregister(IProcessor<std::string, const std::string> *&what) {
+bool StringDataProcessor::doUnregister(IProcessor<std::string, const std::string> *&what) {
 
     if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
 

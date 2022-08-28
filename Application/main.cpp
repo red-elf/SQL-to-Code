@@ -8,7 +8,7 @@
 #include "SQLParser.h"
 #include "sql/SQLStatement.h"
 #include "Commons.h"
-#include "RawDataProcessor.h"
+#include "StringDataProcessor.h"
 
 using namespace Utils;
 using namespace hsql;

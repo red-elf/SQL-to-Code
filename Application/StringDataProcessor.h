@@ -2,15 +2,15 @@
 // Created by milosvasic on 28.08.22.
 //
 
-#ifndef _RAWDATAPROCESSOR_H
-#define _RAWDATAPROCESSOR_H
+#ifndef _STRINGDATAPROCESSOR_H
+#define _STRINGDATAPROCESSOR_H
 
 #include "string"
 #include "vector"
 #include "IProcessor.h"
 #include "IRegistration.h"
 
-class RawDataProcessor :
+class StringDataProcessor :
         public IProcessor<std::string, const std::string>,
         public IRegistration<IProcessor<std::string, const std::string> *> {
 
@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif //_RAWDATAPROCESSOR_H
+#endif //_STRINGDATAPROCESSOR_H
