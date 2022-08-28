@@ -2,6 +2,8 @@
 // Created by milosvasic on 28.08.22.
 //
 
+#include <algorithm>
+
 #include "RawDataProcessor.h"
 
 const std::string RawDataProcessor::process(std::string &input) {
@@ -11,4 +13,36 @@ const std::string RawDataProcessor::process(std::string &input) {
         input = processor->process(input);
     }
     return input;
+}
+
+bool RawDataProcessor::doRegister(IProcessor<std::string, const std::string> *what) {
+
+    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+        return true;
+
+    } else {
+
+        recipes.push_back(what);
+
+        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+            return true;
+        }
+    }
+    return false;
+}
+
+bool RawDataProcessor::doUnregister(IProcessor<std::string, const std::string> *&what) {
+
+    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+        recipes.erase(find(recipes.begin(), recipes.end(), what));
+
+        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+            return false;
+        }
+    }
+    return true;
 }

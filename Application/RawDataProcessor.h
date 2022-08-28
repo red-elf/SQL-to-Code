@@ -8,16 +8,22 @@
 #include "string"
 #include "vector"
 #include "IProcessor.h"
+#include "IRegistration.h"
 
-class RawDataProcessor : public IProcessor<std::string, const std::string> {
+class RawDataProcessor :
+        public IProcessor<std::string, const std::string>,
+        public IRegistration<IProcessor<std::string, const std::string> *> {
 
 public:
 
     [[nodiscard]] const std::string process(std::string &input) override;
 
+    [[nodiscard]] bool doRegister(IProcessor<std::string, const std::string> *what) override = 0;
+    [[nodiscard]] bool doUnregister(IProcessor<std::string , const std::string> *&what) override = 0;
+
 private:
 
-    const std::vector<IProcessor<std::string, const std::string>*> recipes;
+    std::vector<IProcessor<std::string, const std::string> *> recipes;
 };
 
 
