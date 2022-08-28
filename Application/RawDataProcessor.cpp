@@ -6,5 +6,9 @@
 
 const std::string RawDataProcessor::process(std::string &input) {
 
-    return "";
+    for (IProcessor<std::string, const std::string> *processor: recipes) {
+
+        input = processor->process(input);
+    }
+    return input;
 }
