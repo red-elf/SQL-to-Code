@@ -15,6 +15,9 @@ using namespace hsql;
 
 namespace Utils {
 
+    static bool debug = false;
+    static bool logFull = false;
+
     static Logger *getLogger() {
 
         static LoggerSimple simpleLogger;

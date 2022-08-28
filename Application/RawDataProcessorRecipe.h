@@ -6,13 +6,23 @@
 #define _RAWDATAPROCESSORRECIPE_H
 
 #include "string"
+#include "Commons.h"
+#include "Utils.h"
 #include "IProcessor.h"
 
-class RawDataProcessorRecipe : public IProcessor<std::string, const std::string> {
+class RawDataProcessorRecipe : public IProcessor<std::string, std::string> {
 
 public:
 
-    [[nodiscard]] const std::string process(std::string &input) override;
+    [[nodiscard]] std::string process(std::string &input) override;
+
+private:
+
+    const std::string parsingTag = "parsing";
+    const std::string preparingTag = "preparing";
+
+    static std::string trimRow(std::string &row);
+    static std::string alignRow(std::string &row);
 };
 
 

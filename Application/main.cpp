@@ -3,46 +3,17 @@
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
+#include "Commons.h"
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 #include "SQLParser.h"
-#include "sql/SQLStatement.h"
-#include "Commons.h"
 #include "StringDataProcessor.h"
+#include "RawDataProcessorRecipe.h"
+#include "sql/SQLStatement.h"
 
 using namespace Utils;
 using namespace hsql;
 using namespace Commons::IO;
-using namespace Commons::Strings;
-
-std::string trimRow(std::string &row) {
-
-    row = trim(row);
-    row = trim(row, " ");
-    row = trim(row, ",");
-    row = eraseBetween(row, "DROP", ";");
-    row = eraseBetween(row, "CREATE INDEX", ";");
-    row = eraseBetween(row, "CHECK", ")),");
-    row = eraseBetween(row, "CHECK", "))");
-    row = eraseBetween(row, "UNIQUE", "ABORT");
-
-    return row;
-}
-
-std::string alignRow(std::string &row) {
-
-    auto appendTab = !hasBeginning(row, "(") &&
-                     !hasBeginning(row, ")") &&
-                     !hasBeginning(row, "CREATE");
-
-    std::string toAppend;
-
-    if (appendTab) {
-
-        return "    " + row;
-    }
-    return row;
-}
 
 int main(int argc, char *argv[]) {
 
@@ -52,7 +23,6 @@ int main(int argc, char *argv[]) {
     auto columnTag = "column";
     auto parsingTag = "parsing";
     auto workFileTag = "work file";
-    auto preparingTag = "preparing";
     auto processingTag = "processing";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
@@ -98,9 +68,10 @@ int main(int argc, char *argv[]) {
 
     try {
 
+        logFull = program["--logFull"] == true;
+        debug = program["--debug"] == true && logFull;
+
         auto processed = 0;
-        auto logFull = program["--logFull"] == true;
-        auto debug = program["--debug"] == true && logFull;
         auto target = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
@@ -123,80 +94,16 @@ int main(int argc, char *argv[]) {
                 std::exit(1);
             }
 
-            v(preparingTag, "Removing comments: STARTED");
-            query = removeComments(query);
-            v(preparingTag, "Removing comments: COMPLETED");
+            RawDataProcessorRecipe recipe;
+            StringDataProcessor processor;
 
-            auto open = false;
-            auto rows = std::vector<std::string>();
+            if (!processor.doRegister(&recipe)) {
 
-            tokenize(query, '\n', rows);
-
-            v(preparingTag, "Cleaning up the unsupported statements: STARTED");
-
-            std::vector<std::string> processedRows;
-
-            for (std::string &row: rows) {
-
-                if (debug) {
-
-                    v(preparingTag, "Before prepare: " + row);
-                }
-
-                row = trimRow(row);
-
-                if (row.length() > 0) {
-
-                    row = alignRow(row);
-
-                    auto opening = "(";
-                    auto closing = ");";
-
-                    if (row == opening) {
-
-                        open = true;
-                    }
-
-                    if (row == closing) {
-
-                        open = false;
-
-                        auto previousIndex = processedRows.size() - 1;
-                        auto previousRow = processedRows.at(previousIndex);
-                        previousRow = removeAfter(previousRow, ",");
-                        processedRows.at(previousIndex) = previousRow;
-                    }
-
-                    if (open && row != opening && row != closing) {
-
-                        row.append(",");
-                    }
-
-                    processedRows.push_back(row.append("\n"));
-                }
-
-                if (debug) {
-
-                    v(preparingTag, "After prepare: " + row);
-                }
+                e(errTag, "Could not register the processing recipe");
+                std::exit(1);
             }
 
-            v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
-
-            if (logFull) {
-
-                v(parsingTag, "The final sql:");
-            }
-
-            query = "";
-            for (std::string &row: processedRows) {
-
-                query.append(row);
-                if (logFull) {
-
-                    v(parsingTag, trim(row, "\n"));
-                }
-            }
+            query = processor.process(query);
 
             const std::string workFile = (output + "/").append("work.")
                     .append(std::to_string(processed)).append(".sql");
@@ -207,9 +114,6 @@ int main(int argc, char *argv[]) {
             processed++;
 
             d(workFileTag, (workFile + " << ").append(input));
-
-            rows.clear();
-            processedRows.clear();
 
             SQLParserResult result;
             SQLParser::parseSQLString(query, &result);
