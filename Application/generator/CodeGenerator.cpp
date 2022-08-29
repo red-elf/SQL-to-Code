@@ -11,6 +11,8 @@ using namespace Utils;
 
 bool CodeGenerator::feed(Ingredients *items) {
 
+    // FIXME: Verify the check
+
     const std::string tag = "code generator :: feed";
 
     if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
