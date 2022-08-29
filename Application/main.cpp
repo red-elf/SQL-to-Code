@@ -10,6 +10,7 @@
 #include "StringDataProcessor.h"
 #include "sql/SQLStatement.h"
 #include "processor/StringDataProcessorRecipe.h"
+#include "generator/implementation/ClassNameIngredient.h"
 
 using namespace Utils;
 using namespace hsql;
@@ -138,10 +139,12 @@ int main(int argc, char *argv[]) {
 
                             if (createType == CreateType::kCreateTable) {
 
-                                auto tableName = create->tableName;
+                                std::string tableName = create->tableName;
                                 auto columns = create->columns;
 
-                                d(tableTag, tableName);
+                                ClassNameIngredient className(tableName);
+
+                                d(tableTag, className.getName());
 
                                 for (const auto column: *columns) {
 
