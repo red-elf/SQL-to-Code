@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     auto parsingTag = "parsing";
     auto workFileTag = "work file";
     auto processingTag = "processing";
+    auto generatingTag = "generating";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
@@ -200,6 +201,16 @@ int main(int argc, char *argv[]) {
                                 }
                             }
                         }
+                    }
+
+                    if (codeGenerator.execute()) {
+
+                        v(generatingTag, "Success");
+
+                    } else {
+
+                        e(generatingTag, "Failure");
+                        std::exit(1);
                     }
 
                 } else {
