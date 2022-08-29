@@ -7,7 +7,7 @@
 
 #include "vector"
 #include "IRecipe.h"
-#include "IIngredient.h"
+#include "Ingredients.h"
 #include "IRegistration.h"
 
 class CodeGenerator : public IRegistration<IRecipe *> {
@@ -15,11 +15,11 @@ class CodeGenerator : public IRegistration<IRecipe *> {
 private:
 
     std::vector<IRecipe *> recipes;
-    std::vector<IIngredient *> ingredients;
+    std::vector<Ingredients *> ingredients;
 
 public:
 
-    [[nodiscard]] bool feed(IIngredient *ingredient);
+    [[nodiscard]] bool feed(Ingredients *items);
 
     [[nodiscard]] bool doRegister(IRecipe *what) override;
 

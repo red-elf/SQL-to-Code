@@ -6,17 +6,17 @@
 
 #include "algorithm"
 
-bool CodeGenerator::feed(IIngredient *ingredient) {
+bool CodeGenerator::feed(Ingredients *items) {
 
-    if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {
+    if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
 
         return true;
 
     } else {
 
-        ingredients.push_back(ingredient);
+        ingredients.push_back(items);
 
-        if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {
+        if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
 
             return true;
         }
