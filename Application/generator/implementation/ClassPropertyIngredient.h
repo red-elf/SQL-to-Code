@@ -6,9 +6,10 @@
 #define _CLASSPROPERTYINGREDIENT_H
 
 #include "string"
+#include "../IIngredient.h"
 #include "ClassPropertyDataType.h"
 
-class ClassPropertyIngredient {
+class ClassPropertyIngredient : public IIngredient {
 
 public:
 

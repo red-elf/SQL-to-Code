@@ -8,7 +8,6 @@
 #include "vector"
 #include "Ingredients.h"
 
-
 class IRecipe {
 
 public:

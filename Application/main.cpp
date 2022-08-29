@@ -164,7 +164,6 @@ int main(int argc, char *argv[]) {
                                     std::exit(1);
                                 }
 
-
                                 for (const auto column: *columns) {
 
                                     std::string columnName = column->name;
@@ -177,6 +176,12 @@ int main(int argc, char *argv[]) {
                                         auto classPropertyDataType = dataTypeToClassPropertyDataType(dataType);
 
                                         ClassPropertyIngredient classProperty(columnName, classPropertyDataType);
+
+                                        if (!ingredients.add(&classProperty)) {
+
+                                            e(errTag, "Could not add the class property ingredient");
+                                            std::exit(1);
+                                        }
 
                                         v(
                                                 columnTag,
