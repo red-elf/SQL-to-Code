@@ -8,11 +8,11 @@
 #include "string"
 #include "../IIngredient.h"
 
-class ClassNameIngredient {
+class ClassNameIngredient : public IIngredient {
 
 public:
 
-    ClassNameIngredient(std::string &name);
+    explicit ClassNameIngredient(std::string &name);
 
     std::string getName();
 

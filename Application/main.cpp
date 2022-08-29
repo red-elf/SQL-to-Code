@@ -10,6 +10,8 @@
 #include "StringDataProcessor.h"
 #include "sql/SQLStatement.h"
 #include "processor/StringDataProcessorRecipe.h"
+#include "generator/Ingredients.h"
+#include "generator/CodeGenerator.h"
 #include "generator/implementation/ClassNameIngredient.h"
 #include "generator/implementation/ClassPropertyIngredient.h"
 
@@ -128,6 +130,8 @@ int main(int argc, char *argv[]) {
 
                 if (count > 0) {
 
+                    CodeGenerator codeGenerator;
+
                     v(parsingTag, "Statements count: " + std::to_string(count));
 
                     auto statements = result.getStatements();
@@ -143,9 +147,23 @@ int main(int argc, char *argv[]) {
                                 std::string tableName = create->tableName;
                                 auto columns = create->columns;
 
+                                Ingredients ingredients;
                                 ClassNameIngredient className(tableName);
 
                                 d(tableTag, className.getName());
+
+                                if (!codeGenerator.feed(&ingredients)) {
+
+                                    e(errTag, "Could not feed ingredients");
+                                    std::exit(1);
+                                }
+
+                                if (!ingredients.add(&className)) {
+
+                                    e(errTag, "Could not add the class name ingredient");
+                                    std::exit(1);
+                                }
+
 
                                 for (const auto column: *columns) {
 

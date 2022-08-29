@@ -6,14 +6,14 @@
 #define _IRECIPE_H
 
 #include "vector"
-#include "IIngredient.h"
+#include "Ingredients.h"
 
 
 class IRecipe {
 
 public:
 
-    virtual bool cook(std::vector<IIngredient *> &ingredients) = 0;
+    virtual bool cook(std::vector<Ingredients *> &ingredients) = 0;
 };
 
 
