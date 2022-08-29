@@ -2,15 +2,15 @@
 // Created by milosvasic on 29.08.22.
 //
 
-#ifndef _IGENERATOR_H
-#define _IGENERATOR_H
+#ifndef _CODEGENERATOR_H
+#define _CODEGENERATOR_H
 
 #include "vector"
 #include "IRecipe.h"
 #include "IIngredient.h"
 #include "IRegistration.h"
 
-class IGenerator : public IRegistration<IRecipe *> {
+class CodeGenerator : public IRegistration<IRecipe *> {
 
 private:
 
@@ -29,4 +29,4 @@ public:
 };
 
 
-#endif //_IGENERATOR_H
+#endif //_CODEGENERATOR_H

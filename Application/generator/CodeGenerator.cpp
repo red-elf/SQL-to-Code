@@ -2,11 +2,11 @@
 // Created by milosvasic on 29.08.22.
 //
 
-#include "IGenerator.h"
+#include "CodeGenerator.h"
 
 #include "algorithm"
 
-bool IGenerator::feed(IIngredient *ingredient) {
+bool CodeGenerator::feed(IIngredient *ingredient) {
 
     if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {
 
@@ -24,7 +24,7 @@ bool IGenerator::feed(IIngredient *ingredient) {
     return false;
 }
 
-bool IGenerator::doRegister(IRecipe *what) {
+bool CodeGenerator::doRegister(IRecipe *what) {
 
     if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
 
@@ -42,7 +42,7 @@ bool IGenerator::doRegister(IRecipe *what) {
     return false;
 }
 
-bool IGenerator::doUnregister(IRecipe *&what) {
+bool CodeGenerator::doUnregister(IRecipe *&what) {
 
     if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
 
@@ -56,7 +56,7 @@ bool IGenerator::doUnregister(IRecipe *&what) {
     return true;
 }
 
-bool IGenerator::execute() {
+bool CodeGenerator::execute() {
 
     for (IRecipe *recipe: recipes) {
 
