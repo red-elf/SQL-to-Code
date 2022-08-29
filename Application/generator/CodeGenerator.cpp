@@ -11,7 +11,11 @@ using namespace Utils;
 
 bool CodeGenerator::feed(Ingredients *items) {
 
+    const std::string tag = "code generator :: feed";
+
     if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
+
+        w(tag, "Already fed");
 
         return true;
 
@@ -20,6 +24,8 @@ bool CodeGenerator::feed(Ingredients *items) {
         ingredients.push_back(items);
 
         if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
+
+            v(tag, "Ingredients fed");
 
             return true;
         }
@@ -61,7 +67,7 @@ bool CodeGenerator::doUnregister(IRecipe *&what) {
 
 bool CodeGenerator::execute() {
     
-    const std::string tag = "code generator";
+    const std::string tag = "code generator :: execute";
 
     if (ingredients.empty()) {
 

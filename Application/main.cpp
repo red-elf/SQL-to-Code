@@ -153,12 +153,6 @@ int main(int argc, char *argv[]) {
 
                                 d(tableTag, className.getName());
 
-                                if (!codeGenerator.feed(&ingredients)) {
-
-                                    e(errTag, "Could not feed ingredients");
-                                    std::exit(1);
-                                }
-
                                 if (!ingredients.add(&className)) {
 
                                     e(errTag, "Could not add the class name ingredient");
@@ -198,6 +192,12 @@ int main(int argc, char *argv[]) {
                                         e(errTag, err.what());
                                         std::exit(1);
                                     }
+                                }
+
+                                if (!codeGenerator.feed(&ingredients)) {
+
+                                    e(errTag, "Could not feed ingredients");
+                                    std::exit(1);
                                 }
                             }
                         }
