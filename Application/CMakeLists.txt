@@ -36,6 +36,9 @@ file(
         "processor/*.h" "processor/*.cpp"
         "generator/*.h" "generator/*.cpp"
         "generator/implementation/*.h" "generator/implementation/*.cpp"
+        "generator/implementation/cpp/*.h" "generator/implementation/cpp/*.cpp"
+        "generator/implementation/jvm/*.h" "generator/implementation/jvm/*.cpp"
+        "generator/implementation/dart/*.h" "generator/implementation/dart/*.cpp"
 )
 add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
