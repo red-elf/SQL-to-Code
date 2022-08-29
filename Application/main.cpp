@@ -8,8 +8,8 @@
 #include "VersionInfo.h"
 #include "SQLParser.h"
 #include "StringDataProcessor.h"
-#include "StringDataProcessorRecipe.h"
 #include "sql/SQLStatement.h"
+#include "processor/StringDataProcessorRecipe.h"
 
 using namespace Utils;
 using namespace hsql;

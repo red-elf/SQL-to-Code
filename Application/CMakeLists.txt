@@ -29,7 +29,7 @@ link_libraries(sqlparser)
 # argparse dependency:
 include_directories("/usr/local/include/argparse")
 
-file(GLOB APP_SRC "*.h" "*.cpp")
+file(GLOB APP_SRC "*.h" "*.cpp" "processor/*.h" "processor/*.cpp" "generator/*.h" "generator/*.cpp")
 add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin/${PROJECT_NAME})
