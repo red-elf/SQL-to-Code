@@ -55,3 +55,15 @@ bool IGenerator::doUnregister(IRecipe *&what) {
     }
     return true;
 }
+
+bool IGenerator::execute() {
+
+    for (IRecipe *recipe: recipes) {
+
+        if (!recipe->cook(ingredients)) {
+
+            return false;
+        }
+    }
+    return true;
+}

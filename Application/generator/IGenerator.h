@@ -25,7 +25,7 @@ public:
 
     [[nodiscard]] bool doUnregister(IRecipe *&what) override;
 
-    virtual bool execute() = 0;
+    bool execute();
 };
 
 
