@@ -11,7 +11,6 @@
 #include "sql/SQLStatement.h"
 #include "processor/StringDataProcessorRecipe.h"
 #include "generator/implementation/ClassNameIngredient.h"
-#include "generator/implementation/ClassPropertyDataType.h"
 #include "generator/implementation/ClassPropertyIngredient.h"
 
 using namespace Utils;
