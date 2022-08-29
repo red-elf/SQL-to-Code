@@ -5,6 +5,9 @@
 #include "CodeGenerator.h"
 
 #include "algorithm"
+#include "Utils.h"
+
+using namespace Utils;
 
 bool CodeGenerator::feed(Ingredients *items) {
 
@@ -57,6 +60,15 @@ bool CodeGenerator::doUnregister(IRecipe *&what) {
 }
 
 bool CodeGenerator::execute() {
+    
+    const std::string tag = "code generator";
+
+    if (recipes.empty()) {
+
+        w(tag, "No recipes registered");
+
+        return false;
+    }
 
     for (IRecipe *recipe: recipes) {
 
