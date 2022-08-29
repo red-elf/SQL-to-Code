@@ -12,12 +12,13 @@ class IGenerator {
 
 private:
 
-    std::vector<IIngredient*> ingredients;
+    std::vector<IIngredient *> ingredients;
 
 public:
 
+    [[nodiscard]] bool feed(IIngredient *ingredient);
 
-
+    virtual bool execute() = 0;
 };
 
 
