@@ -5,10 +5,17 @@
 #ifndef _IGENERATOR_H
 #define _IGENERATOR_H
 
+#include "vector"
+#include "IIngredient.h"
 
 class IGenerator {
 
+private:
+
+    std::vector<IIngredient*> ingredients;
+
 public:
+
 
 
 };
