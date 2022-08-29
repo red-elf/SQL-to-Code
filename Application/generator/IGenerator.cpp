@@ -23,3 +23,35 @@ bool IGenerator::feed(IIngredient *ingredient) {
     }
     return false;
 }
+
+bool IGenerator::doRegister(IRecipe *what) {
+
+    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+        return true;
+
+    } else {
+
+        recipes.push_back(what);
+
+        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+            return true;
+        }
+    }
+    return false;
+}
+
+bool IGenerator::doUnregister(IRecipe *&what) {
+
+    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+        recipes.erase(find(recipes.begin(), recipes.end(), what));
+
+        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
+
+            return false;
+        }
+    }
+    return true;
+}
