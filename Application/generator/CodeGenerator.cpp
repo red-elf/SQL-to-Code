@@ -63,6 +63,17 @@ bool CodeGenerator::execute() {
     
     const std::string tag = "code generator";
 
+    if (ingredients.empty()) {
+
+        w(tag, "No ingredients added");
+
+        return false;
+
+    } else {
+
+        v(tag, "Ingredients added: " + std::to_string(ingredients.size()));
+    }
+
     if (recipes.empty()) {
 
         w(tag, "No recipes registered");
