@@ -203,6 +203,7 @@ int main(int argc, char *argv[]) {
                         }
                     }
 
+                    // FIXME: Execute after all tables are processed from all inputs
                     if (codeGenerator.execute()) {
 
                         v(generatingTag, "Success");
