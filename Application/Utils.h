@@ -10,6 +10,7 @@
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 #include "sql/SQLStatement.h"
+#include "generator/implementation/ClassPropertyDataType.h"
 
 using namespace hsql;
 
@@ -73,6 +74,8 @@ namespace Utils {
     }
 
     std::string dataTypeToString(DataType &dataType);
+
+    ClassPropertyDataType dataTypeToClassPropertyDataType(DataType &dataType);
 }
 
 #endif //_UTILS_H

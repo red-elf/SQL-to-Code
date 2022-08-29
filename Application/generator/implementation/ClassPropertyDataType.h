@@ -20,7 +20,7 @@ enum class ClassPropertyDataType {
     LONG,
     REAL,
     SMALLINT,
-    TEXT,
+    STRING,
     TIME,
     VARCHAR,
 };

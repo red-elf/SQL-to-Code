@@ -11,6 +11,8 @@
 #include "sql/SQLStatement.h"
 #include "processor/StringDataProcessorRecipe.h"
 #include "generator/implementation/ClassNameIngredient.h"
+#include "generator/implementation/ClassPropertyDataType.h"
+#include "generator/implementation/ClassPropertyIngredient.h"
 
 using namespace Utils;
 using namespace hsql;
@@ -148,19 +150,24 @@ int main(int argc, char *argv[]) {
 
                                 for (const auto column: *columns) {
 
-                                    auto columnName = column->name;
+                                    std::string columnName = column->name;
                                     auto columnType = column->type;
                                     auto dataType = columnType.data_type;
 
                                     try {
 
                                         auto commonType = dataTypeToString(dataType);
+                                        auto classPropertyDataType = dataTypeToClassPropertyDataType(dataType);
+
+                                        ClassPropertyIngredient classProperty(columnName, classPropertyDataType);
 
                                         v(
                                                 columnTag,
 
                                                 std::string(tableName).append(" :: ")
-                                                        .append(columnName).append(" -> ").append(commonType)
+                                                        .append(classProperty.getName())
+                                                        .append(" -> ")
+                                                        .append(commonType)
                                         );
 
                                     } catch (std::invalid_argument &err) {
