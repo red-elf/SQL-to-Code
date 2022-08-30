@@ -53,8 +53,7 @@ std::string StringDataProcessorRecipe::process(std::string &query) {
 
     for (std::string &row: rows) {
 
-        // FIXME: Not printed if debug on
-        if (debug) {
+        if (isDebug()) {
 
             v(preparingTag, "Before prepare: " + row);
         }
@@ -91,7 +90,7 @@ std::string StringDataProcessorRecipe::process(std::string &query) {
             processedRows.push_back(row.append("\n"));
         }
 
-        if (debug) {
+        if (isDebug()) {
 
             v(preparingTag, "After prepare: " + row);
         }
@@ -99,7 +98,7 @@ std::string StringDataProcessorRecipe::process(std::string &query) {
 
     v(preparingTag, "Cleaning up the unsupported statements: COMPLETED");
 
-    if (logFull) {
+    if (logFull()) {
 
         v(parsingTag, "The final sql:");
     }
@@ -108,7 +107,8 @@ std::string StringDataProcessorRecipe::process(std::string &query) {
     for (std::string &row: processedRows) {
 
         query.append(row);
-        if (logFull) {
+
+        if (logFull()) {
 
             v(parsingTag, trim(row, "\n"));
         }

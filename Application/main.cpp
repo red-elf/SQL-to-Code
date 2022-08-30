@@ -74,15 +74,15 @@ int main(int argc, char *argv[]) {
 
     try {
 
-        logFull = program["--logFull"] == true;
-        debug = program["--debug"] == true && logFull;
+        setLogFull(program["--logFull"] == true);
+        setDebug(program["--debug"] == true && logFull());
 
-        if (logFull) {
+        if (logFull()) {
 
             v(paramsTag, "Full-log mode is on");
         }
 
-        if (debug) {
+        if (isDebug()) {
 
             w(paramsTag, "Debug mode is on");
         }
@@ -207,7 +207,7 @@ int main(int argc, char *argv[]) {
 
                                 if (codeGenerator.feed(&ingredients)) {
 
-                                    if (debug) {
+                                    if (isDebug()) {
 
                                         v(
 
@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
                                     e(
 
                                             errTag, "The ingredient not fed: '"
-                                                      + ingredients.getDescription() + "'"
+                                                    + ingredients.getDescription() + "'"
                                     );
 
                                     std::exit(1);
@@ -250,7 +250,7 @@ int main(int argc, char *argv[]) {
 
                 e(errTag, "Error while parsing file " + workFile);
 
-                if (logFull) {
+                if (logFull()) {
 
                     e(errTag, result.errorMsg());
                     e(errTag, "Line: " + std::to_string(result.errorLine()));
