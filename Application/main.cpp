@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
     auto inputTag = "input";
     auto columnTag = "column";
     auto parsingTag = "parsing";
+    auto paramsTag = "parameters";
     auto workFileTag = "work file";
     auto processingTag = "processing";
     auto generatingTag = "generating";
@@ -75,6 +76,16 @@ int main(int argc, char *argv[]) {
 
         logFull = program["--logFull"] == true;
         debug = program["--debug"] == true && logFull;
+
+        if (logFull) {
+
+            v(paramsTag, "Full-log mode is on");
+        }
+
+        if (debug) {
+
+            w(paramsTag, "Debug mode is on");
+        }
 
         auto processed = 0;
         auto target = program.get<std::string>("target");
