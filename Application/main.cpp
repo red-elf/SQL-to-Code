@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
     auto paramsTag = "parameters";
     auto workFileTag = "work file";
     auto processingTag = "processing";
-    auto generatingTag = "generating";
     auto codeGeneratorTag = "code generator";
 
     CodeGenerator codeGenerator;
@@ -255,7 +254,13 @@ int main(int argc, char *argv[]) {
 
         if (logFull()) {
 
-            v(codeGeneratorTag, "Registering recipes");
+            std::string recipesTarget = target;
+            if (target == "cpp") {
+
+                recipesTarget = "C++";
+            }
+
+            v(codeGeneratorTag, "Setting up the recipes for " + recipesTarget);
         }
 
         if (target == "cpp") {
@@ -264,7 +269,11 @@ int main(int argc, char *argv[]) {
 
                 if (logFull()) {
 
-                    v(codeGeneratorTag, cppHeaderFileRecipe.getDescription() + " has been registered");
+                    v(
+
+                            codeGeneratorTag,
+                            "The " + cppHeaderFileRecipe.getDescription() + " has been registered"
+                    );
                 }
 
             } else {
@@ -276,11 +285,11 @@ int main(int argc, char *argv[]) {
 
         if (codeGenerator.execute()) {
 
-            v(generatingTag, "Success");
+            v(codeGeneratorTag, "Success");
 
         } else {
 
-            e(generatingTag, "Failure");
+            e(codeGeneratorTag, "Failure");
             std::exit(1);
         }
 

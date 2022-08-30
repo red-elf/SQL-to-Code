@@ -54,11 +54,11 @@ bool CodeGenerator::execute() {
 
     for (IRecipe *recipe: recipes) {
 
-        v(tag, recipe->getDescription());
+        v(tag, "The " + recipe->getDescription());
 
         if (!recipe->cook(ingredients)) {
 
-            e(tag, recipe->getDescription() + ": failed");
+            e(tag, "The " + recipe->getDescription() + ": failed");
             return false;
         }
     }
