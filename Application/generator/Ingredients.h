@@ -6,17 +6,24 @@
 #define _INGREDIENTS_H
 
 #include "vector"
+#include "string"
 #include "IIngredient.h"
 
 class Ingredients {
 
 private:
 
+    std::string description;
+
     std::vector<IIngredient *> ingredients;
 
 public:
 
+    explicit Ingredients(std::string &description);
+
     [[nodiscard]] bool add(IIngredient *ingredient);
+
+    std::string getDescription();
 };
 
 

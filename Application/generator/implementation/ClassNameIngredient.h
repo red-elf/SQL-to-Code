@@ -10,15 +10,15 @@
 
 class ClassNameIngredient : public IIngredient {
 
+private:
+
+    std::string name;
+
 public:
 
     explicit ClassNameIngredient(std::string &name);
 
     std::string getName();
-
-private:
-
-    std::string name;
 };
 
 

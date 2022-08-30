@@ -2,73 +2,36 @@
 // Created by milosvasic on 29.08.22.
 //
 
+#include "Utils.h"
 #include "CodeGenerator.h"
 
 #include "algorithm"
-#include "Utils.h"
 
 using namespace Utils;
 
 bool CodeGenerator::feed(Ingredients *items) {
 
-    // FIXME: Verify the check
-
-    const std::string tag = "code generator :: feed";
-
-    if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
-
-        w(tag, "Already fed");
-
-        return true;
-
-    } else {
-
-        ingredients.push_back(items);
-
-        if (std::find(ingredients.begin(), ingredients.end(), items) != ingredients.end()) {
-
-            v(tag, "Ingredients fed");
-
-            return true;
-        }
-    }
-    return false;
+    size_t size = ingredients.size();
+    ingredients.push_back(items);
+    return size != ingredients.size();
 }
 
 bool CodeGenerator::doRegister(IRecipe *what) {
 
-    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
-
-        return true;
-
-    } else {
-
-        recipes.push_back(what);
-
-        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
-
-            return true;
-        }
-    }
-    return false;
+    size_t size = recipes.size();
+    recipes.push_back(what);
+    return size != recipes.size();
 }
 
 bool CodeGenerator::doUnregister(IRecipe *&what) {
 
-    if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
-
-        recipes.erase(find(recipes.begin(), recipes.end(), what));
-
-        if (std::find(recipes.begin(), recipes.end(), what) != recipes.end()) {
-
-            return false;
-        }
-    }
-    return true;
+    size_t size = recipes.size();
+    recipes.erase(std::remove(recipes.begin(), recipes.end(), what), recipes.end());
+    return size != recipes.size();
 }
 
 bool CodeGenerator::execute() {
-    
+
     const std::string tag = "code generator :: execute";
 
     if (ingredients.empty()) {

@@ -6,6 +6,16 @@
 
 #include "algorithm"
 
+Ingredients::Ingredients(std::string &description) {
+
+    this->description = description;
+}
+
+std::string Ingredients::getDescription() {
+
+    return this->description;
+}
+
 bool Ingredients::add(IIngredient *ingredient) {
 
     if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {

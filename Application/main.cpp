@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
                                 std::string tableName = create->tableName;
                                 auto columns = create->columns;
 
-                                Ingredients ingredients;
+                                Ingredients ingredients(tableName);
                                 ClassNameIngredient className(tableName);
 
                                 d(tableTag, className.getName());
@@ -194,9 +194,25 @@ int main(int argc, char *argv[]) {
                                     }
                                 }
 
-                                if (!codeGenerator.feed(&ingredients)) {
+                                if (codeGenerator.feed(&ingredients)) {
 
-                                    e(errTag, "Could not feed ingredients");
+                                    if (debug) {
+
+                                        v(
+
+                                                tableTag, "The ingredient fed: '"
+                                                          + ingredients.getDescription() + "'"
+                                        );
+                                    }
+
+                                } else {
+
+                                    e(
+
+                                            errTag, "The ingredient not fed: '"
+                                                      + ingredients.getDescription() + "'"
+                                    );
+
                                     std::exit(1);
                                 }
                             }
