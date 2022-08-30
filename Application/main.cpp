@@ -35,6 +35,15 @@ int main(int argc, char *argv[]) {
     CodeGenerator codeGenerator;
     CppHeaderFileRecipe cppHeaderFileRecipe;
 
+    StringDataProcessor processor;
+    StringDataProcessorRecipe recipe;
+
+    if (!processor.doRegister(&recipe)) {
+
+        e(errTag, "Could not register the processing recipe");
+        std::exit(1);
+    }
+
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
     program.add_argument("-i", "--input")
@@ -111,15 +120,6 @@ int main(int argc, char *argv[]) {
             if (query.length() == 0) {
 
                 e(errTag, "Nothing loaded from the input file: " + input);
-                std::exit(1);
-            }
-
-            StringDataProcessorRecipe recipe;
-            StringDataProcessor processor;
-
-            if (!processor.doRegister(&recipe)) {
-
-                e(errTag, "Could not register the processing recipe");
                 std::exit(1);
             }
 
