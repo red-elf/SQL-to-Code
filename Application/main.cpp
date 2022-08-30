@@ -102,11 +102,6 @@ int main(int argc, char *argv[]) {
             i(inputTag, input);
         }
 
-        if (logFull()) {
-
-            v(codeGeneratorTag, "Registering recipes");
-        }
-
         for (std::string &input: inputs) {
 
             i(processingTag, input);
@@ -256,6 +251,11 @@ int main(int argc, char *argv[]) {
 
                 std::exit(1);
             }
+        }
+
+        if (logFull()) {
+
+            v(codeGeneratorTag, "Registering recipes");
         }
 
         if (target == "cpp") {
