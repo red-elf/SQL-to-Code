@@ -33,6 +33,9 @@ int main(int argc, char *argv[]) {
     auto generatingTag = "generating";
     auto codeGeneratorTag = "code generator";
 
+    CodeGenerator codeGenerator;
+    CppHeaderFileRecipe cppHeaderFileRecipe;
+
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
     program.add_argument("-i", "--input")
@@ -99,29 +102,9 @@ int main(int argc, char *argv[]) {
             i(inputTag, input);
         }
 
-        CodeGenerator codeGenerator;
-
         if (logFull()) {
 
             v(codeGeneratorTag, "Registering recipes");
-        }
-
-        if (target == "cpp") {
-
-            CppHeaderFileRecipe cppHeaderFileRecipe;
-
-            if (codeGenerator.doRegister(&cppHeaderFileRecipe)) {
-
-                if (logFull()) {
-
-                    v(codeGeneratorTag, cppHeaderFileRecipe.getDescription() + " has been registered");
-                }
-
-            } else {
-
-                e(errTag, "Could not register the " + cppHeaderFileRecipe.getDescription());
-                std::exit(1);
-            }
         }
 
         for (std::string &input: inputs) {
@@ -271,6 +254,22 @@ int main(int argc, char *argv[]) {
                     e(errTag, "Column: " + std::to_string(result.errorColumn()));
                 }
 
+                std::exit(1);
+            }
+        }
+
+        if (target == "cpp") {
+
+            if (codeGenerator.doRegister(&cppHeaderFileRecipe)) {
+
+                if (logFull()) {
+
+                    v(codeGeneratorTag, cppHeaderFileRecipe.getDescription() + " has been registered");
+                }
+
+            } else {
+
+                e(errTag, "Could not register the " + cppHeaderFileRecipe.getDescription());
                 std::exit(1);
             }
         }
