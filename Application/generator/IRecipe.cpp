@@ -4,9 +4,11 @@
 
 #include "IRecipe.h"
 
+#include <utility>
+
 IRecipe::IRecipe(std::string description) {
 
-    this->description = description;
+    this->description = std::move(description);
 }
 
 std::string IRecipe::getDescription() {

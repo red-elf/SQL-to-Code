@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
     auto workFileTag = "work file";
     auto processingTag = "processing";
     auto generatingTag = "generating";
+    auto codeGeneratorTag = "code generator";
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
@@ -99,13 +100,26 @@ int main(int argc, char *argv[]) {
         }
 
         CodeGenerator codeGenerator;
+
+        if (logFull()) {
+
+            v(codeGeneratorTag, "Registering recipes");
+        }
+
         if (target == "cpp") {
 
             CppHeaderFileRecipe cppHeaderFileRecipe;
 
-            if (!codeGenerator.doRegister(&cppHeaderFileRecipe)) {
+            if (codeGenerator.doRegister(&cppHeaderFileRecipe)) {
 
-                e(errTag, "Could not register the c++ header recipe");
+                if (logFull()) {
+
+                    v(codeGeneratorTag, cppHeaderFileRecipe.getDescription() + " has been registered");
+                }
+
+            } else {
+
+                e(errTag, "Could not register the " + cppHeaderFileRecipe.getDescription());
                 std::exit(1);
             }
         }
