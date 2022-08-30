@@ -53,6 +53,7 @@ std::string StringDataProcessorRecipe::process(std::string &query) {
 
     for (std::string &row: rows) {
 
+        // FIXME: Not printed if debug on
         if (debug) {
 
             v(preparingTag, "Before prepare: " + row);
