@@ -103,11 +103,11 @@ int main(int argc, char *argv[]) {
 
             CppHeaderFileRecipe cppHeaderFileRecipe;
 
-//            if (!codeGenerator.doRegister(&cppHeaderFileRecipe)) {
-//
-//                e(errTag, "Could not register the c++ header recipe");
-//                std::exit(1);
-//            }
+            if (!codeGenerator.doRegister(&cppHeaderFileRecipe)) {
+
+                e(errTag, "Could not register the c++ header recipe");
+                std::exit(1);
+            }
         }
 
         for (std::string &input: inputs) {
