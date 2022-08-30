@@ -4,11 +4,13 @@
 
 #include "Ingredients.h"
 
+#include <utility>
+
 #include "algorithm"
 
-Ingredients::Ingredients(std::string &description) {
+Ingredients::Ingredients(std::string description) {
 
-    this->description = description;
+    this->description = std::move(description);
 }
 
 std::string Ingredients::getDescription() {

@@ -54,10 +54,13 @@ bool CodeGenerator::execute() {
 
     for (IRecipe *recipe: recipes) {
 
-        if (!recipe->cook(ingredients)) {
+        v(tag, "Executing the recipe: " + recipe->getDescription());
 
-            return false;
-        }
+        // FIXME:
+//        if (!recipe->cook(ingredients)) {
+//
+//            return false;
+//        }
     }
     return true;
 }

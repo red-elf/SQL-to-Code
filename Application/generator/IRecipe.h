@@ -6,13 +6,22 @@
 #define _IRECIPE_H
 
 #include "vector"
+#include "string"
 #include "Ingredients.h"
 
 class IRecipe {
 
+private:
+
+    std::string description;
+
 public:
 
-    virtual bool cook(std::vector<Ingredients *> &ingredients) = 0;
+    explicit IRecipe(std::string description);
+
+    [[nodiscard]] std::string getDescription();
+
+    [[nodiscard]] virtual bool cook(std::vector<Ingredients *> &ingredients) = 0;
 };
 
 

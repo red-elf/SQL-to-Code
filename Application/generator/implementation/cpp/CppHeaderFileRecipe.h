@@ -12,6 +12,10 @@ class CppHeaderFileRecipe : public IRecipe {
 
 public:
 
+    CppHeaderFileRecipe() : IRecipe("C++ header file recipe") {
+
+    }
+
     bool cook(std::vector<Ingredients *> &ingredients) override;
 };
 

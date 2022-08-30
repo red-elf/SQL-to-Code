@@ -19,11 +19,11 @@ private:
 
 public:
 
-    explicit Ingredients(std::string &description);
+    explicit Ingredients(std::string description);
 
     [[nodiscard]] bool add(IIngredient *ingredient);
 
-    std::string getDescription();
+    [[nodiscard]] std::string getDescription();
 };
 
 
