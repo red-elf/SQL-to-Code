@@ -97,6 +97,8 @@ int main(int argc, char *argv[]) {
             i(inputTag, input);
         }
 
+        CodeGenerator codeGenerator;
+
         for (std::string &input: inputs) {
 
             i(processingTag, input);
@@ -141,8 +143,6 @@ int main(int argc, char *argv[]) {
                 v(parsingTag, "Completed");
 
                 if (count > 0) {
-
-                    CodeGenerator codeGenerator;
 
                     v(parsingTag, "Statements count: " + std::to_string(count));
 
@@ -230,17 +230,6 @@ int main(int argc, char *argv[]) {
                         }
                     }
 
-                    // FIXME: Execute after all tables are processed from all inputs
-                    if (codeGenerator.execute()) {
-
-                        v(generatingTag, "Success");
-
-                    } else {
-
-                        e(generatingTag, "Failure");
-                        std::exit(1);
-                    }
-
                 } else {
 
                     w(parsingTag, "No items");
@@ -259,6 +248,16 @@ int main(int argc, char *argv[]) {
 
                 std::exit(1);
             }
+        }
+
+        if (codeGenerator.execute()) {
+
+            v(generatingTag, "Success");
+
+        } else {
+
+            e(generatingTag, "Failure");
+            std::exit(1);
         }
 
     } catch (std::logic_error &err) {
