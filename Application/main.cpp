@@ -14,6 +14,7 @@
 #include "generator/CodeGenerator.h"
 #include "generator/implementation/ClassNameIngredient.h"
 #include "generator/implementation/ClassPropertyIngredient.h"
+#include "generator/implementation/cpp/CppHeaderFileRecipe.h"
 
 using namespace Utils;
 using namespace hsql;
@@ -98,6 +99,16 @@ int main(int argc, char *argv[]) {
         }
 
         CodeGenerator codeGenerator;
+        if (target == "cpp") {
+
+            CppHeaderFileRecipe cppHeaderFileRecipe;
+
+//            if (!codeGenerator.doRegister(&cppHeaderFileRecipe)) {
+//
+//                e(errTag, "Could not register the c++ header recipe");
+//                std::exit(1);
+//            }
+        }
 
         for (std::string &input: inputs) {
 
