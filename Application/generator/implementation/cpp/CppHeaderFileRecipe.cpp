@@ -21,6 +21,7 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
             std::string className = "";
 
+            // FIXME:
             ClassNameIngredient *classNameIngredient = dynamic_cast<ClassNameIngredient *>(ingredient);
             if (classNameIngredient != nullptr) {
 
