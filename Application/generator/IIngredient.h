@@ -8,6 +8,9 @@
 
 class IIngredient {
 
+public:
+
+    virtual ~IIngredient() = default;
 };
 
 

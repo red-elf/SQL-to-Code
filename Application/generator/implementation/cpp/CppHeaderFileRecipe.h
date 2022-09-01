@@ -7,14 +7,15 @@
 
 #include "string"
 #include "../../IRecipe.h"
+#include "CppRecipeCommons.h"
 
-class CppHeaderFileRecipe : public IRecipe {
+class CppHeaderFileRecipe : public IRecipe, public CppRecipeCommons {
 
 private:
 
 public:
 
-    CppHeaderFileRecipe() : IRecipe("C++ header file recipe") {}
+    CppHeaderFileRecipe() : IRecipe("C++ header file recipe"), CppRecipeCommons() {}
 
     bool cook(std::vector<Ingredients *> &ingredients) override;
 };

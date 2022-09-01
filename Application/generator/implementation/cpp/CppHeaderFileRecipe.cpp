@@ -4,6 +4,7 @@
 
 #include "CppHeaderFileRecipe.h"
 
+#include "string"
 #include "Utils.h"
 #include "../../IIngredient.h"
 #include "../../Ingredients.h"
@@ -14,11 +15,22 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
     auto tag = "recipe :: cook";
 
-    for (Ingredients* ingredientsSet : ingredients) {
+    for (Ingredients *ingredientsSet: ingredients) {
 
-        for (IIngredient* ingredient : *ingredientsSet->getIngredients()) {
+        for (IIngredient *ingredient: *ingredientsSet->getIngredients()) {
 
-            v(tag, "Ingredient ...");
+            std::string className = "";
+
+            ClassNameIngredient *classNameIngredient = dynamic_cast<ClassNameIngredient *>(ingredient);
+            if (classNameIngredient != nullptr) {
+
+                className = getClassName(classNameIngredient);
+                v(tag, "Ingredient :: Class name");
+
+            } else {
+
+                w(tag, "Ingredient :: Unknown");
+            }
         }
     }
 

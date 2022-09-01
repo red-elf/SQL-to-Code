@@ -17,6 +17,8 @@ private:
 
 public:
 
+    virtual ~IRecipe() = default;
+
     explicit IRecipe(std::string description);
 
     [[nodiscard]] std::string getDescription();
