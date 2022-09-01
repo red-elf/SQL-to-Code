@@ -35,3 +35,8 @@ bool Ingredients::add(IIngredient *ingredient) {
     }
     return false;
 }
+
+std::vector<IIngredient *> *Ingredients::getIngredients() {
+
+    return &this->ingredients;
+}

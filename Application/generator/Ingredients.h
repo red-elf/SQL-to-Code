@@ -24,6 +24,8 @@ public:
     [[nodiscard]] bool add(IIngredient *ingredient);
 
     [[nodiscard]] std::string getDescription();
+
+    [[nodiscard]] std::vector<IIngredient *> *getIngredients();
 };
 
 
