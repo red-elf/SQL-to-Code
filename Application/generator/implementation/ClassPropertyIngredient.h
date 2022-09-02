@@ -7,6 +7,7 @@
 
 #include "string"
 #include "../IIngredient.h"
+#include "IngredientType.h"
 #include "ClassPropertyDataType.h"
 
 class ClassPropertyIngredient : public IIngredient {
@@ -18,6 +19,8 @@ public:
     std::string getName();
 
     ClassPropertyDataType &getType();
+
+    IngredientType getIngredientType() override;
 
 private:
 

@@ -5,12 +5,15 @@
 #ifndef _IINGREDIENT_H
 #define _IINGREDIENT_H
 
+#include "implementation/IngredientType.h"
 
 class IIngredient {
 
 public:
 
     virtual ~IIngredient() = default;
+
+    virtual IngredientType getIngredientType() = 0;
 };
 
 

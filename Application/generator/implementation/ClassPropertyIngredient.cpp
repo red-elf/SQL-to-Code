@@ -18,3 +18,8 @@ std::string ClassPropertyIngredient::getName() {
 
     return this->name;
 }
+
+IngredientType ClassPropertyIngredient::getIngredientType() {
+
+    return IngredientType::CLASS_PROPERTY;
+}
