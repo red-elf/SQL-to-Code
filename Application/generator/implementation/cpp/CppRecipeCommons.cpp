@@ -7,5 +7,5 @@
 std::string CppRecipeCommons::getClassName(ClassNameIngredient *ingredient) {
 
     // TODO:
-    return "";
+    return "TODO...";
 }

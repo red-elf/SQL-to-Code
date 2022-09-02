@@ -6,9 +6,10 @@
 
 #include "string"
 #include "Utils.h"
-#include "../IngredientType.h"
 #include "../../IIngredient.h"
 #include "../../Ingredients.h"
+#include "../ClassNameIngredient.h"
+#include "../ClassPropertyIngredient.h"
 
 using namespace Utils;
 
@@ -21,30 +22,24 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
         for (IIngredient *ingredient: *ingredientsSet->getIngredients()) {
 
             std::string className;
+            auto classNameIngredient = static_cast<ClassNameIngredient *>(ingredient);
             // FIXME:
-            // IngredientType ingredientType = ingredient->getIngredientType();
+            auto *classPropertyIngredient = static_cast<ClassPropertyIngredient *>(ingredient);
 
-//            switch(ingredientType) {
-//
-//                case IngredientType::CLASS_NAME: {
-//
-////                    ClassNameIngredient *classNameIngredient = dynamic_cast<ClassNameIngredient *>(ingredient);
-////                    className = getClassName(classNameIngredient);
-//                    v(tag, "Ingredient :: Class name");
-//                    break;
-//                }
-//
-//                case IngredientType::CLASS_PROPERTY: {
-//
-//                    v(tag, "Ingredient :: Class property");
-//                    break;
-//                }
-//
-//                default: {
-//
-//                    e(tag, "Ingredient :: Unknown");
-//                }
-//            }
+            if (classNameIngredient != nullptr) {
+
+                className = getClassName(classNameIngredient);
+                v(tag, "Ingredient :: Class name: " + className);
+                continue;
+            }
+
+            if (classPropertyIngredient != nullptr) {
+
+                v(tag, "Ingredient :: Class property: " + classPropertyIngredient->getName());
+                continue;
+            }
+
+            e(tag, "Ingredient :: Unknown");
         }
     }
 

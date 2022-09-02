@@ -5,8 +5,6 @@
 #ifndef _IINGREDIENT_H
 #define _IINGREDIENT_H
 
-#include "implementation/IngredientType.h"
-
 class IIngredient {
 
 public:
@@ -14,8 +12,6 @@ public:
     IIngredient();
 
     virtual ~IIngredient() = default;
-
-    virtual IngredientType getIngredientType() = 0;
 };
 
 
