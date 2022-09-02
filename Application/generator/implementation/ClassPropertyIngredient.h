@@ -14,7 +14,11 @@ class ClassPropertyIngredient : public IIngredient {
 
 public:
 
-    ClassPropertyIngredient(std::string &name, ClassPropertyDataType &type);
+    ClassPropertyIngredient(std::string &name, ClassPropertyDataType &type) : IIngredient() {
+
+        this->name = name;
+        this->type = type;
+    }
 
     std::string getName();
 
@@ -26,7 +30,7 @@ private:
 
     std::string name;
 
-    ClassPropertyDataType &type;
+    ClassPropertyDataType type;
 };
 
 

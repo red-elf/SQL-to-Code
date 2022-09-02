@@ -3,3 +3,5 @@
 //
 
 #include "IIngredient.h"
+
+IIngredient::IIngredient() = default;

@@ -13,7 +13,10 @@ class ClassNameIngredient : public IIngredient {
 
 public:
 
-    explicit ClassNameIngredient(std::string &name);
+    explicit ClassNameIngredient(std::string &name) : IIngredient() {
+
+        this->name = name;
+    };
 
     std::string getName();
 

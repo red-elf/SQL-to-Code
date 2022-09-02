@@ -4,11 +4,6 @@
 
 #include "ClassPropertyIngredient.h"
 
-ClassPropertyIngredient::ClassPropertyIngredient(std::string &name, ClassPropertyDataType &type) : type(type) {
-
-    this->name = name;
-}
-
 ClassPropertyDataType &ClassPropertyIngredient::getType() {
 
     return this->type;

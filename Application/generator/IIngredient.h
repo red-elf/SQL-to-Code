@@ -11,6 +11,8 @@ class IIngredient {
 
 public:
 
+    IIngredient();
+
     virtual ~IIngredient() = default;
 
     virtual IngredientType getIngredientType() = 0;

@@ -22,7 +22,7 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
             std::string className;
             // FIXME:
-            //IngredientType ingredientType = ingredient->getIngredientType();
+            // IngredientType ingredientType = ingredient->getIngredientType();
 
 //            switch(ingredientType) {
 //
