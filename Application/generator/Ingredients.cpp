@@ -18,25 +18,24 @@ std::string Ingredients::getDescription() {
     return this->description;
 }
 
-bool Ingredients::add(IIngredient *ingredient) {
+std::vector<ClassPropertyIngredient *> *Ingredients::getProperties() {
 
-    if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {
-
-        return true;
-
-    } else {
-
-        ingredients.push_back(ingredient);
-
-        if (std::find(ingredients.begin(), ingredients.end(), ingredient) != ingredients.end()) {
-
-            return true;
-        }
-    }
-    return false;
+    return &this->properties;
 }
 
-std::vector<IIngredient *> *Ingredients::getIngredients() {
+bool Ingredients::addProperty(ClassPropertyIngredient *property) {
 
-    return &this->ingredients;
+    size_t size = this->properties.size();
+    this->properties.push_back(property);
+    return size != this->properties.size();
 }
+
+void Ingredients::setClassName(ClassNameIngredient *className) {
+
+    this->className = className;
+};
+
+ClassNameIngredient *Ingredients::getClassName() {
+
+    return this->className;
+};

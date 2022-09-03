@@ -6,40 +6,25 @@
 
 #include "string"
 #include "Utils.h"
-#include "../../IIngredient.h"
-#include "../../Ingredients.h"
-#include "../ClassNameIngredient.h"
-#include "../ClassPropertyIngredient.h"
 
 using namespace Utils;
 
 bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
-    auto tag = "recipe :: cook";
+    auto tag = getDescription();
 
     for (Ingredients *ingredientsSet: ingredients) {
 
-        for (IIngredient *ingredient: *ingredientsSet->getIngredients()) {
+        auto classNameIngredient = ingredientsSet->getClassName();
+        std::string className = getClassName(classNameIngredient);
 
-            std::string className;
-            auto classNameIngredient = static_cast<ClassNameIngredient *>(ingredient);
-            // FIXME:
-            auto *classPropertyIngredient = static_cast<ClassPropertyIngredient *>(ingredient);
+        v(tag, "Class name: " + className);
 
-            if (classNameIngredient != nullptr) {
+        for (ClassPropertyIngredient *propertyIngredient: *ingredientsSet->getProperties()) {
 
-                className = getClassName(classNameIngredient);
-                v(tag, "Ingredient :: Class name: " + className);
-                continue;
-            }
-
-            if (classPropertyIngredient != nullptr) {
-
-                v(tag, "Ingredient :: Class property: " + classPropertyIngredient->getName());
-                continue;
-            }
-
-            e(tag, "Ingredient :: Unknown");
+            // FIXME: Segmentation fault
+            w(tag, "Class property: FIXME");
+            // v(tag, "Class property: " + propertyIngredient->getName());
         }
     }
 

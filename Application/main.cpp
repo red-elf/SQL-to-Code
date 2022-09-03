@@ -166,11 +166,7 @@ int main(int argc, char *argv[]) {
 
                                 d(tableTag, className.getName());
 
-                                if (!ingredients.add(&className)) {
-
-                                    e(errTag, "Could not add the class name ingredient");
-                                    std::exit(1);
-                                }
+                                ingredients.setClassName(&className);
 
                                 for (const auto column: *columns) {
 
@@ -185,7 +181,7 @@ int main(int argc, char *argv[]) {
 
                                         ClassPropertyIngredient classProperty(columnName, classPropertyDataType);
 
-                                        if (!ingredients.add(&classProperty)) {
+                                        if (!ingredients.addProperty(&classProperty)) {
 
                                             e(errTag, "Could not add the class property ingredient");
                                             std::exit(1);

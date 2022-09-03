@@ -8,6 +8,8 @@
 #include "vector"
 #include "string"
 #include "IIngredient.h"
+#include "implementation/ClassNameIngredient.h"
+#include "implementation/ClassPropertyIngredient.h"
 
 class Ingredients {
 
@@ -15,17 +17,22 @@ private:
 
     std::string description;
 
-    std::vector<IIngredient *> ingredients;
+    ClassNameIngredient *className;
+    std::vector<ClassPropertyIngredient *> properties;
 
 public:
 
     explicit Ingredients(std::string description);
 
-    [[nodiscard]] bool add(IIngredient *ingredient);
-
     [[nodiscard]] std::string getDescription();
 
-    [[nodiscard]] std::vector<IIngredient *> *getIngredients();
+    void setClassName(ClassNameIngredient *className);
+
+    [[nodiscard]] ClassNameIngredient *getClassName();
+
+    [[nodiscard]] bool addProperty(ClassPropertyIngredient *property);
+
+    [[nodiscard]] std::vector<ClassPropertyIngredient *> *getProperties();
 };
 
 
