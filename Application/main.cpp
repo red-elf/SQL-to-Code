@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     StringDataProcessor processor;
     StringDataProcessorRecipe recipe;
 
-    if (!processor.doRegister(&recipe)) {
+    if (!processor.doRegister(recipe)) {
 
         e(errTag, "Could not register the processing recipe");
         std::exit(1);
@@ -262,7 +262,7 @@ int main(int argc, char *argv[]) {
 
         if (target == "cpp") {
 
-            if (codeGenerator.doRegister(&cppHeaderFileRecipe)) {
+            if (codeGenerator.doRegister(cppHeaderFileRecipe)) {
 
                 if (logFull()) {
 

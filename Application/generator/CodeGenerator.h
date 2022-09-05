@@ -10,7 +10,7 @@
 #include "Ingredients.h"
 #include "IRegistration.h"
 
-class CodeGenerator : public IRegistration<IRecipe *> {
+class CodeGenerator : public IRegistration<IRecipe> {
 
 private:
 
@@ -21,9 +21,9 @@ public:
 
     [[nodiscard]] bool feed(Ingredients *items);
 
-    [[nodiscard]] bool doRegister(IRecipe *what) override;
+    [[nodiscard]] bool doRegister(IRecipe &what) override;
 
-    [[nodiscard]] bool doUnregister(IRecipe *&what) override;
+    [[nodiscard]] bool doUnregister(IRecipe &what) override;
 
     bool execute();
 };

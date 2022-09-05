@@ -16,17 +16,17 @@ bool CodeGenerator::feed(Ingredients *items) {
     return size != ingredients.size();
 }
 
-bool CodeGenerator::doRegister(IRecipe *what) {
+bool CodeGenerator::doRegister(IRecipe &what) {
 
     size_t size = recipes.size();
-    recipes.push_back(what);
+    recipes.push_back(&what);
     return size != recipes.size();
 }
 
-bool CodeGenerator::doUnregister(IRecipe *&what) {
+bool CodeGenerator::doUnregister(IRecipe &what) {
 
     size_t size = recipes.size();
-    recipes.erase(std::remove(recipes.begin(), recipes.end(), what), recipes.end());
+    recipes.erase(std::remove(recipes.begin(), recipes.end(), &what), recipes.end());
     return size != recipes.size();
 }
 
