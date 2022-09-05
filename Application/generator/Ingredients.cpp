@@ -18,24 +18,24 @@ std::string Ingredients::getDescription() {
     return this->description;
 }
 
-std::vector<ClassPropertyIngredient *> *Ingredients::getProperties() {
+std::vector<std::unique_ptr<ClassPropertyIngredient>> *Ingredients::getProperties() {
 
     return &this->properties;
 }
 
-bool Ingredients::addProperty(ClassPropertyIngredient *property) {
+bool Ingredients::addProperty(std::unique_ptr<ClassPropertyIngredient> &property) {
 
     size_t size = this->properties.size();
-    this->properties.push_back(property);
+    this->properties.push_back(std::move(property));
     return size != this->properties.size();
 }
 
-void Ingredients::setClassName(ClassNameIngredient *className) {
+void Ingredients::setClassName(ClassNameIngredient *name) {
 
-    this->className = className;
-};
+    this->className = name;
+}
 
 ClassNameIngredient *Ingredients::getClassName() {
 
     return this->className;
-};
+}

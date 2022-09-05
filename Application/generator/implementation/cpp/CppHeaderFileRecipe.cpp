@@ -20,12 +20,11 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
         v(tag, "Class name: " + className);
 
-        for (ClassPropertyIngredient *propertyIngredient: *ingredientsSet->getProperties()) {
-
-            // FIXME: Segmentation fault
-            w(tag, "Class property: FIXME");
-            // v(tag, "Class property: " + propertyIngredient->getName());
-        }
+        // FIXME:
+//        for (std::unique_ptr<ClassPropertyIngredient> propertyIngredient: *ingredientsSet->getProperties()) {
+//
+//            v(tag, "Class property: " + propertyIngredient->getName());
+//        }
     }
 
     return false;

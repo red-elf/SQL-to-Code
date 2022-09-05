@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
 
                                 ingredients.setClassName(&className);
 
-                                for (const auto column: *columns) {
+                                for (auto column : *columns) {
 
                                     std::string columnName = column->name;
                                     auto columnType = column->type;
@@ -180,8 +180,9 @@ int main(int argc, char *argv[]) {
                                         auto classPropertyDataType = dataTypeToClassPropertyDataType(dataType);
 
                                         ClassPropertyIngredient classProperty(columnName, classPropertyDataType);
+                                        auto ptr = std::make_unique<ClassPropertyIngredient>(classProperty);
 
-                                        if (!ingredients.addProperty(&classProperty)) {
+                                        if (!ingredients.addProperty(ptr)) {
 
                                             e(errTag, "Could not add the class property ingredient");
                                             std::exit(1);
