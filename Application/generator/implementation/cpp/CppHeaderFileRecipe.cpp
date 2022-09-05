@@ -20,7 +20,9 @@ bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
 
         v(tag, "Class name: " + className);
 
-        // FIXME:
+        auto properties = ingredientsSet->getProperties();
+        v(tag, "Class properties count: " + std::to_string(properties->size()));
+
 //        for (std::unique_ptr<ClassPropertyIngredient> propertyIngredient: *ingredientsSet->getProperties()) {
 //
 //            v(tag, "Class property: " + propertyIngredient->getName());
