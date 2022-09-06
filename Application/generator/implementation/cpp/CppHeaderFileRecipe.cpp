@@ -18,7 +18,6 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         auto classNameIngredient = ingredientsSet->getClassName();
         std::string className = getClassName(classNameIngredient);
 
-        // FIXME:
         v(tag, "Class name: " + className);
 
         auto properties = ingredientsSet->getProperties();
