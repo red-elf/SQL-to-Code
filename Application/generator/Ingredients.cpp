@@ -31,12 +31,13 @@ bool Ingredients::addProperty(ClassPropertyIngredient &property) {
     return size != this->properties.size();
 }
 
-void Ingredients::setClassName(ClassNameIngredient *name) {
+void Ingredients::setClassName(ClassNameIngredient &name) {
 
-    this->className = name;
+    auto ptr = std::make_shared<ClassNameIngredient>(name);
+    this->className = ptr;
 }
 
-ClassNameIngredient *Ingredients::getClassName() {
+std::shared_ptr<ClassNameIngredient> Ingredients::getClassName() {
 
     return this->className;
 }

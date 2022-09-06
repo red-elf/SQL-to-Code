@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
 
                                 d(tableTag, className.getName());
 
-                                ingredients.setClassName(&className);
+                                ingredients.setClassName(className);
 
                                 for (auto column: *columns) {
 

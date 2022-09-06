@@ -17,8 +17,7 @@ class Ingredients {
 private:
 
     std::string description;
-
-    ClassNameIngredient *className{};
+    std::shared_ptr<ClassNameIngredient> className;
     std::vector<std::shared_ptr<ClassPropertyIngredient>> properties;
 
 public:
@@ -27,9 +26,9 @@ public:
 
     [[nodiscard]] std::string getDescription();
 
-    void setClassName(ClassNameIngredient *name);
+    void setClassName(ClassNameIngredient &name);
 
-    [[nodiscard]] ClassNameIngredient *getClassName();
+    [[nodiscard]] std::shared_ptr<ClassNameIngredient> getClassName();
 
     [[nodiscard]] bool addProperty(ClassPropertyIngredient &property);
 

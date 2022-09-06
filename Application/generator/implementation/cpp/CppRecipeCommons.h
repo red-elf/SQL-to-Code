@@ -6,6 +6,7 @@
 #define _CPPRECIPECOMMONS_H
 
 #include "string"
+#include "memory"
 
 #include "../ClassNameIngredient.h"
 
@@ -13,7 +14,7 @@ class CppRecipeCommons {
 
 protected:
 
-    std::string getClassName(ClassNameIngredient *ingredient);
+    std::string getClassName(std::shared_ptr<ClassNameIngredient> &ingredient);
 };
 
 

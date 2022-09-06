@@ -4,7 +4,7 @@
 
 #include "CppRecipeCommons.h"
 
-std::string CppRecipeCommons::getClassName(ClassNameIngredient *ingredient) {
+std::string CppRecipeCommons::getClassName(std::shared_ptr<ClassNameIngredient> &ingredient) {
 
     return ingredient->getName();
 }
