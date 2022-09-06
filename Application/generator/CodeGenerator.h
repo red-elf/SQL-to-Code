@@ -10,8 +10,9 @@
 #include "IRecipe.h"
 #include "Ingredients.h"
 #include "IRegistration.h"
+#include "IUnRegistration.h"
 
-class CodeGenerator : public IRegistration<IRecipe> {
+class CodeGenerator : public IRegistration<IRecipe>, IUnRegistration<IRecipe> {
 
 private:
 

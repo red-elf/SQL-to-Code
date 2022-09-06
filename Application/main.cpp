@@ -7,9 +7,8 @@
 #include "BuildConfig.h"
 #include "VersionInfo.h"
 #include "SQLParser.h"
-#include "StringDataProcessor.h"
 #include "sql/SQLStatement.h"
-#include "processor/StringDataProcessorRecipe.h"
+#include "processor/StringDataProcessor.h"
 #include "generator/Ingredients.h"
 #include "generator/CodeGenerator.h"
 #include "generator/implementation/ClassNameIngredient.h"
@@ -34,15 +33,7 @@ int main(int argc, char *argv[]) {
 
     CodeGenerator codeGenerator;
     CppHeaderFileRecipe cppHeaderFileRecipe;
-
     StringDataProcessor processor;
-    StringDataProcessorRecipe recipe;
-
-    if (!processor.doRegister(recipe)) {
-
-        e(errTag, "Could not register the processing recipe");
-        std::exit(1);
-    }
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
 
