@@ -19,7 +19,7 @@ private:
     std::string description;
 
     ClassNameIngredient *className{};
-    std::vector<std::unique_ptr<ClassPropertyIngredient>> properties;
+    std::vector<std::shared_ptr<ClassPropertyIngredient>> properties;
 
 public:
 
@@ -31,9 +31,9 @@ public:
 
     [[nodiscard]] ClassNameIngredient *getClassName();
 
-    [[nodiscard]] bool addProperty(std::unique_ptr<ClassPropertyIngredient>& property);
+    [[nodiscard]] bool addProperty(ClassPropertyIngredient &property);
 
-    [[nodiscard]] std::vector<std::unique_ptr<ClassPropertyIngredient>> *getProperties();
+    [[nodiscard]] std::vector<std::shared_ptr<ClassPropertyIngredient>> *getProperties();
 };
 
 

@@ -18,15 +18,16 @@ std::string Ingredients::getDescription() {
     return this->description;
 }
 
-std::vector<std::unique_ptr<ClassPropertyIngredient>> *Ingredients::getProperties() {
+std::vector<std::shared_ptr<ClassPropertyIngredient>> *Ingredients::getProperties() {
 
     return &this->properties;
 }
 
-bool Ingredients::addProperty(std::unique_ptr<ClassPropertyIngredient> &property) {
+bool Ingredients::addProperty(ClassPropertyIngredient &property) {
 
     size_t size = this->properties.size();
-    this->properties.push_back(std::move(property));
+    auto ptr = std::make_shared<ClassPropertyIngredient>(property);
+    this->properties.push_back(ptr);
     return size != this->properties.size();
 }
 
