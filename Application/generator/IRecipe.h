@@ -7,6 +7,7 @@
 
 #include "vector"
 #include "string"
+#include "memory"
 #include "Ingredients.h"
 
 class IRecipe {
@@ -23,7 +24,7 @@ public:
 
     [[nodiscard]] std::string getDescription();
 
-    [[nodiscard]] virtual bool cook(std::vector<Ingredients *> &ingredients) = 0;
+    [[nodiscard]] virtual bool cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) = 0;
 };
 
 

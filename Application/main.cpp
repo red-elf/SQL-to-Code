@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
 
                                 ingredients.setClassName(&className);
 
-                                for (auto column : *columns) {
+                                for (auto column: *columns) {
 
                                     std::string columnName = column->name;
                                     auto columnType = column->type;
@@ -203,7 +203,7 @@ int main(int argc, char *argv[]) {
                                     }
                                 }
 
-                                if (codeGenerator.feed(&ingredients)) {
+                                if (codeGenerator.feed(ingredients)) {
 
                                     if (isDebug()) {
 

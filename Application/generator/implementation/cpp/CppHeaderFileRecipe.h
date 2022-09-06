@@ -6,6 +6,7 @@
 #define _CPPHEADERFILERECIPE_H
 
 #include "string"
+#include "memory"
 #include "../../IRecipe.h"
 #include "CppRecipeCommons.h"
 
@@ -17,7 +18,7 @@ public:
 
     CppHeaderFileRecipe() : IRecipe("C++ header file recipe"), CppRecipeCommons() {}
 
-    bool cook(std::vector<Ingredients *> &ingredients) override;
+    bool cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) override;
 };
 
 

@@ -9,11 +9,11 @@
 
 using namespace Utils;
 
-bool CppHeaderFileRecipe::cook(std::vector<Ingredients *> &ingredients) {
+bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) {
 
     auto tag = getDescription();
 
-    for (Ingredients *ingredientsSet: ingredients) {
+    for (const std::shared_ptr<Ingredients>& ingredientsSet: ingredients) {
 
         auto classNameIngredient = ingredientsSet->getClassName();
         std::string className = getClassName(classNameIngredient);

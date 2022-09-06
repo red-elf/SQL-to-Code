@@ -9,10 +9,11 @@
 
 using namespace Utils;
 
-bool CodeGenerator::feed(Ingredients *items) {
+bool CodeGenerator::feed(Ingredients &items) {
 
     size_t size = ingredients.size();
-    ingredients.push_back(items);
+    auto ptr = std::make_shared<Ingredients>(items);
+    ingredients.push_back(ptr);
     return size != ingredients.size();
 }
 

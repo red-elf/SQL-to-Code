@@ -6,6 +6,7 @@
 #define _CODEGENERATOR_H
 
 #include "vector"
+#include "memory"
 #include "IRecipe.h"
 #include "Ingredients.h"
 #include "IRegistration.h"
@@ -15,11 +16,11 @@ class CodeGenerator : public IRegistration<IRecipe> {
 private:
 
     std::vector<IRecipe *> recipes;
-    std::vector<Ingredients *> ingredients;
+    std::vector<std::shared_ptr<Ingredients>> ingredients;
 
 public:
 
-    [[nodiscard]] bool feed(Ingredients *items);
+    [[nodiscard]] bool feed(Ingredients &items);
 
     [[nodiscard]] bool doRegister(IRecipe &what) override;
 
