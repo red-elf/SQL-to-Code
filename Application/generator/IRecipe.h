@@ -22,7 +22,7 @@ public:
 
     explicit IRecipe(std::string description);
 
-    [[nodiscard]] std::string getDescription();
+    [[nodiscard]] std::string &getDescription();
 
     [[nodiscard]] virtual bool cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) = 0;
 };

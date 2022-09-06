@@ -11,7 +11,7 @@ IRecipe::IRecipe(std::string description) {
     this->description = std::move(description);
 }
 
-std::string IRecipe::getDescription() {
+std::string &IRecipe::getDescription() {
 
     return this->description;
 }
