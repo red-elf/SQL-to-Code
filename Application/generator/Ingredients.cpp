@@ -13,7 +13,7 @@ Ingredients::Ingredients(std::string description) {
     this->description = std::move(description);
 }
 
-std::string Ingredients::getDescription() {
+std::string &Ingredients::getDescription() {
 
     return this->description;
 }

@@ -24,7 +24,7 @@ public:
 
     explicit Ingredients(std::string description);
 
-    [[nodiscard]] std::string getDescription();
+    [[nodiscard]] std::string &getDescription();
 
     void setClassName(ClassNameIngredient &name);
 
