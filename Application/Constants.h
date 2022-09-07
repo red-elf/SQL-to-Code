@@ -15,6 +15,8 @@ using namespace Commons::Strings;
 namespace Constants {
 
     std::string TAB = "    ";
+    std::string BLOCK_ON = "{";
+    std::string BLOCK_OFF = "}";
     std::string COMMENT_ON = "/*";
     std::string COMMENT_OFF = "*/";
 
