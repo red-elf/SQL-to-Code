@@ -19,6 +19,13 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
     for (const std::shared_ptr<Ingredients>& ingredientsSet: ingredients) {
 
         auto classNameIngredient = ingredientsSet->getClassName();
+
+        if (classNameIngredient->getName().length() == 0) {
+
+            e(tag, "Empty class name");
+            return false;
+        }
+
         std::string className = getClassName(classNameIngredient);
         std::string fileOutput = destination + fileSeparator() + className + ".h";
 
@@ -29,6 +36,12 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         v(tag, "Class properties count: " + std::to_string(properties->size()));
 
         for (auto &&propertyIngredient: *properties) {
+
+            if (propertyIngredient->getName().length() == 0) {
+
+                e(tag, "Empty property name");
+                return false;
+            }
 
             std::string propertyName = getPropertyName(propertyIngredient);
             v(tag, "Class property: " + propertyName);
