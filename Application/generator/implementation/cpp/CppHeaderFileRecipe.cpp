@@ -43,7 +43,10 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         content.append(COMMENT_ON).append(newLine)
                 .append(TAB).append(fileName).append(newLine)
                 .append(TAB).append(SIGNATURE).append(newLine)
-                .append(COMMENT_OFF).append(newLine);
+                .append(COMMENT_OFF).append(newLine)
+                .append(newLine)
+                .append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(newLine)
+                .append(BLOCK_OFF).append(STATEMENT_END);
 
         auto properties = ingredientsSet->getProperties();
         v(tag, "Class properties count: " + std::to_string(properties->size()));

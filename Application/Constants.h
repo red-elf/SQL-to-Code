@@ -14,6 +14,9 @@ using namespace Commons::Strings;
 
 namespace Constants {
 
+    std::string CLASS = "class";
+    std::string STATEMENT_END = ";";
+
     std::string TAB = "    ";
     std::string BLOCK_ON = "{";
     std::string BLOCK_OFF = "}";
