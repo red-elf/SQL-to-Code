@@ -4,7 +4,42 @@
 
 #include "CppRecipeCommons.h"
 
+#include "string"
+#include "algorithm"
+
+std::string capitalize(std::string &what){
+
+    what[0] = toupper(what[0]);
+    return what;
+}
+
+std::string camelcase(std::string &what) {
+
+    auto n = what.length();
+
+    int res_ind = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        // check for spaces in the sentence
+        if (what[i] == ' ') {
+
+            what[i + 1] = toupper(what[i + 1]);
+            continue;
+
+        } else {
+
+            what[res_ind++] = what[i];
+        }
+    }
+
+    return what.substr(0, res_ind);
+}
+
 std::string CppRecipeCommons::getClassName(std::shared_ptr<ClassNameIngredient> &ingredient) {
 
-    return ingredient->getName();
+    auto what = ingredient->getName();
+    std::replace(what.begin(), what.end(), '_', ' ');
+    what = camelcase(what);
+    return capitalize(what);
 }

@@ -18,7 +18,7 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         auto classNameIngredient = ingredientsSet->getClassName();
         std::string className = getClassName(classNameIngredient);
 
-        v(tag, "Class name: " + className);
+        d(tag, "Class name: " + className);
 
         auto properties = ingredientsSet->getProperties();
         v(tag, "Class properties count: " + std::to_string(properties->size()));

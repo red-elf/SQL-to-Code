@@ -14,7 +14,7 @@ class CppRecipeCommons {
 
 protected:
 
-    std::string getClassName(std::shared_ptr<ClassNameIngredient> &ingredient);
+    static std::string getClassName(std::shared_ptr<ClassNameIngredient> &ingredient);
 };
 
 
