@@ -25,7 +25,8 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         for (auto &&propertyIngredient: *properties) {
 
-            v(tag, "Class property: " + propertyIngredient->getName());
+            std::string propertyName = getPropertyName(propertyIngredient);
+            v(tag, "Class property: " + propertyName);
         }
     }
 

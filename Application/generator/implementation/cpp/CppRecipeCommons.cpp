@@ -13,6 +13,12 @@ std::string capitalize(std::string &what){
     return what;
 }
 
+std::string deCapitalize(std::string &what){
+
+    what[0] = tolower(what[0]);
+    return what;
+}
+
 std::string camelcase(std::string &what) {
 
     auto n = what.length();
@@ -42,4 +48,12 @@ std::string CppRecipeCommons::getClassName(std::shared_ptr<ClassNameIngredient> 
     std::replace(what.begin(), what.end(), '_', ' ');
     what = camelcase(what);
     return capitalize(what);
+}
+
+std::string CppRecipeCommons::getPropertyName(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+
+    auto what = ingredient->getName();
+    std::replace(what.begin(), what.end(), '_', ' ');
+    what = camelcase(what);
+    return deCapitalize(what);
 }
