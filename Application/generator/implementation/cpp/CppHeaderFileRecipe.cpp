@@ -72,7 +72,7 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             }
         }
 
-        writeFile(content, destination);
+        writeFile(content, fileOutput);
     }
 
     return false;
