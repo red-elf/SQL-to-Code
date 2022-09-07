@@ -10,6 +10,7 @@
 
 using namespace Utils;
 using namespace Commons::IO;
+using namespace Commons::Strings;
 
 bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) {
 
@@ -19,8 +20,10 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         auto classNameIngredient = ingredientsSet->getClassName();
         std::string className = getClassName(classNameIngredient);
+        std::string fileOutput = destination + fileSeparator() + className + ".h";
 
         d(tag, "Class name: " + className);
+        d(tag, "Output: " + fileOutput);
 
         auto properties = ingredientsSet->getProperties();
         v(tag, "Class properties count: " + std::to_string(properties->size()));
