@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
     auto codeGeneratorTag = "code generator";
 
     CodeGenerator codeGenerator;
-    CppHeaderFileRecipe cppHeaderFileRecipe;
     StringDataProcessor processor;
 
     argparse::ArgumentParser program(VERSIONABLE_NAME, getVersion());
@@ -95,6 +94,8 @@ int main(int argc, char *argv[]) {
         auto target = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
+
+        CppHeaderFileRecipe cppHeaderFileRecipe(output);
 
         for (std::string &input: inputs) {
 

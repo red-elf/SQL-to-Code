@@ -13,7 +13,13 @@
 
 class CppRecipeCommons {
 
+public:
+
+    explicit CppRecipeCommons(std::string &dest);
+
 protected:
+
+    std::string destination;
 
     static std::string getClassName(std::shared_ptr<ClassNameIngredient> &ingredient);
 

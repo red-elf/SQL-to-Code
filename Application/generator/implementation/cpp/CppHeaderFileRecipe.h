@@ -16,7 +16,8 @@ private:
 
 public:
 
-    CppHeaderFileRecipe() : IRecipe("C++ header file recipe"), CppRecipeCommons() {}
+    explicit CppHeaderFileRecipe(std::string &destination) :
+            IRecipe("C++ header file recipe"), CppRecipeCommons(destination) {}
 
     bool cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) override;
 };

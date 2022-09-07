@@ -10,6 +10,11 @@
 
 using namespace Commons::Strings;
 
+CppRecipeCommons::CppRecipeCommons(std::string &dest) {
+
+    this->destination = dest;
+}
+
 std::string CppRecipeCommons::getClassName(std::shared_ptr<ClassNameIngredient> &ingredient) {
 
     auto what = ingredient->getName();

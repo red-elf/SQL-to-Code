@@ -6,8 +6,10 @@
 
 #include "string"
 #include "Utils.h"
+#include "Commons.h"
 
 using namespace Utils;
+using namespace Commons::IO;
 
 bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) {
 
