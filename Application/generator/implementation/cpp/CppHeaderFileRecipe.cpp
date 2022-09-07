@@ -45,7 +45,8 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
                 .append(TAB).append(SIGNATURE).append(newLine)
                 .append(COMMENT_OFF).append(newLine)
                 .append(newLine)
-                .append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(newLine)
+                .append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(
+                        newLine)
                 .append(BLOCK_OFF).append(STATEMENT_END);
 
         auto properties = ingredientsSet->getProperties();
@@ -78,11 +79,7 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         d(tag, "Writing the C++ header file: " + fileOutput);
 
-        auto expected = content.length();
-        writeFile(content, fileOutput);
-        auto written = fileSize(fileOutput);
-
-        if (expected == written) {
+        if (writeFileWithResult(content, fileOutput)) {
 
             i(tag, "The C++ header file written: " + fileOutput);
 
