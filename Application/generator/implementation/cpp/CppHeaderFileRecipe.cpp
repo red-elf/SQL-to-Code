@@ -11,9 +11,9 @@
 #include "../../../Constants.h"
 
 using namespace Utils;
+using namespace Constants;
 using namespace Commons::IO;
 using namespace Commons::Strings;
-using namespace Constants;
 
 bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingredients) {
 
@@ -72,7 +72,7 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             }
         }
 
-        // TODO: Write the file
+        writeFile(content, destination);
     }
 
     return false;

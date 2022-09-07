@@ -20,6 +20,7 @@ using namespace Utils;
 using namespace hsql;
 using namespace Target;
 using namespace Commons::IO;
+using namespace Commons::Strings;
 
 int main(int argc, char *argv[]) {
 
@@ -143,8 +144,10 @@ int main(int argc, char *argv[]) {
 
             query = processor.process(query);
 
-            const std::string workFile = (output + "/").append("work.")
-                    .append(std::to_string(processed)).append(".sql");
+            const std::string workFile = (output + fileSeparator())
+                    .append("work.")
+                    .append(std::to_string(processed))
+                    .append(".sql");
 
             d(workFileTag, workFile);
 
