@@ -37,9 +37,9 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         std::string fileOutput = destination + fileSeparator() + fileName;
 
         d(tag, "Class name: " + className);
-        d(tag, "Output: " + fileOutput);
+        d(tag, "Output file: " + fileOutput);
 
-        content.append(COMMENT_ON).append(newLine).append(newLine)
+        content.append(COMMENT_ON).append(newLine)
                 .append(TAB).append(fileName).append(newLine)
                 .append(TAB).append(SIGNATURE).append(newLine)
                 .append(COMMENT_OFF).append(newLine);
@@ -61,7 +61,7 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         if (logFull()) {
 
-            v(tag, "The header file content:");
+            v(tag, "The C++ header file content:");
 
             std::list<std::string> lines;
             tokenize(content, '\n', lines);
@@ -72,8 +72,21 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             }
         }
 
+        d(tag, "Writing the C++ header file: " + fileOutput);
+
+        auto expected = content.length();
         writeFile(content, fileOutput);
+        auto written = fileSize(fileOutput);
+
+        if (expected == written) {
+
+            i(tag, "The C++ header file written: " + fileOutput);
+
+        } else {
+
+            return false;
+        }
     }
 
-    return false;
+    return true;
 }
