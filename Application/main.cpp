@@ -3,6 +3,7 @@
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
+#include "Target.h"
 #include "Commons.h"
 #include "BuildConfig.h"
 #include "VersionInfo.h"
@@ -17,6 +18,7 @@
 
 using namespace Utils;
 using namespace hsql;
+using namespace Target;
 using namespace Commons::IO;
 
 int main(int argc, char *argv[]) {
@@ -91,10 +93,34 @@ int main(int argc, char *argv[]) {
         }
 
         auto processed = 0;
-        auto target = program.get<std::string>("target");
+        auto targetInput = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
         auto inputs = program.get<std::vector<std::string>>("input");
 
+        auto target = ETarget::UNKNOWN;
+
+        if (targetInput == Target::CPP) {
+
+            target = ETarget::CPP;
+        }
+
+        if (targetInput == Target::JVM) {
+
+            target = ETarget::JVM;
+        }
+
+        if (targetInput == Target::DART) {
+
+            target = ETarget::DART;
+        }
+
+        if (target == Target::ETarget::UNKNOWN) {
+
+            e(errTag, "Unrecognized target: " + targetInput);
+            std::exit(1);
+        }
+
+        // TODO: //instantiate only needed recipes
         CppHeaderFileRecipe cppHeaderFileRecipe(output);
 
         for (std::string &input: inputs) {
@@ -105,7 +131,7 @@ int main(int argc, char *argv[]) {
         for (std::string &input: inputs) {
 
             i(processingTag, input);
-            i("into --->", target);
+            i("into --->", targetInput);
 
             std::string query = readFile(input);
 
@@ -242,8 +268,8 @@ int main(int argc, char *argv[]) {
 
         if (logFull()) {
 
-            std::string recipesTarget = target;
-            if (target == "cpp") {
+            std::string recipesTarget = targetInput;
+            if (target == Target::ETarget::CPP) {
 
                 recipesTarget = "C++";
             }
@@ -251,7 +277,7 @@ int main(int argc, char *argv[]) {
             v(codeGeneratorTag, "Setting up the recipes for " + recipesTarget);
         }
 
-        if (target == "cpp") {
+        if (target == Target::ETarget::CPP) {
 
             if (codeGenerator.doRegister(cppHeaderFileRecipe)) {
 
