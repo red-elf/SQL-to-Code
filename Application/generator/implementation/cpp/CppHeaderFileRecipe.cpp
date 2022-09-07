@@ -61,6 +61,8 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         if (logFull()) {
 
+            v(tag, "The header file content:");
+
             std::list<std::string> lines;
             tokenize(content, '\n', lines);
 
