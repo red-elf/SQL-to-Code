@@ -69,6 +69,8 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
                 v(tag, line);
             }
         }
+
+        // TODO: Write the file
     }
 
     return false;
