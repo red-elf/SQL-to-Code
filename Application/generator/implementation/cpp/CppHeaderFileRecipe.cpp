@@ -40,15 +40,30 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         d(tag, "Class name: " + className);
         d(tag, "Output file: " + fileOutput);
 
+        bool hasString = false;
+        auto properties = ingredientsSet->getProperties();
+        for (auto &&propertyIngredient: *properties) {
+
+            if (propertyIngredient->getType() == ClassPropertyDataType::STRING) {
+
+                hasString = true;
+            }
+        }
+
         content.append(COMMENT_ON).append(newLine)
                 .append(TAB).append(fileName).append(newLine)
                 .append(TAB).append(SIGNATURE).append(newLine)
                 .append(COMMENT_OFF).append(newLine)
-                .append(newLine)
-                .append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(
-                        newLine);
+                .append(newLine);
 
-        auto properties = ingredientsSet->getProperties();
+        if (hasString) {
+
+            content.append("#include \"string\"").append(newLine).append(newLine);
+        }
+
+        content.append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(
+                newLine);
+
         if (logFull()) {
 
             v(tag, "Class properties count: " + std::to_string(properties->size()));
