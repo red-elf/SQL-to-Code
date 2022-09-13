@@ -15,6 +15,7 @@
 #include "generator/implementation/ClassNameIngredient.h"
 #include "generator/implementation/ClassPropertyIngredient.h"
 #include "generator/implementation/cpp/CppHeaderFileRecipe.h"
+#include "generator/implementation/cpp/CppSourceFileRecipe.h"
 
 using namespace Utils;
 using namespace hsql;
@@ -121,8 +122,9 @@ int main(int argc, char *argv[]) {
             std::exit(1);
         }
 
-        // TODO: //instantiate only needed recipes
+        // TODO: Instantiate only needed recipes
         CppHeaderFileRecipe cppHeaderFileRecipe(output);
+        CppSourceFileRecipe cppSourceFileRecipe(output);
 
         for (std::string &input: inputs) {
 
@@ -296,6 +298,23 @@ int main(int argc, char *argv[]) {
             } else {
 
                 e(errTag, "Could not register the " + cppHeaderFileRecipe.getDescription());
+                std::exit(1);
+            }
+
+            if (codeGenerator.doRegister(cppSourceFileRecipe)) {
+
+                if (logFull()) {
+
+                    v(
+
+                            codeGeneratorTag,
+                            "The " + cppSourceFileRecipe.getDescription() + " has been registered"
+                    );
+                }
+
+            } else {
+
+                e(errTag, "Could not register the " + cppSourceFileRecipe.getDescription());
                 std::exit(1);
             }
         }
