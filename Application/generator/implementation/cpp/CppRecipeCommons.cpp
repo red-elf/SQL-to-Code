@@ -8,7 +8,9 @@
 #include "algorithm"
 #include "Commons.h"
 #include "../ClassPropertyDataType.h"
+#include "../../../Constants.h"
 
+using namespace Constants;
 using namespace Commons::Strings;
 
 CppRecipeCommons::CppRecipeCommons(std::string &dest) {
@@ -68,10 +70,39 @@ std::string CppRecipeCommons::getPropertyType(std::shared_ptr<ClassPropertyIngre
 
 std::string CppRecipeCommons::getPropertyGetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
 
-    return "";
+    auto dataType = getPropertyType(ingredient);
+    auto propertyName = getPropertyName(ingredient);
+
+    return dataType
+            .append(" ")
+            .append("get")
+            .append(capitalize(propertyName))
+            .append(METHOD_ON)
+            .append(METHOD_OFF);
 }
 
 std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+
+    auto dataType = getPropertyType(ingredient);
+    auto propertyName = getPropertyName(ingredient);
+
+    return std::string("void")
+            .append(" ")
+            .append("set")
+            .append(capitalize(propertyName))
+            .append(METHOD_ON)
+            .append(dataType)
+            .append(" ")
+            .append("value")
+            .append(METHOD_OFF);
+}
+
+std::string CppRecipeCommons::getPropertyGetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+
+    return "";
+}
+
+std::string CppRecipeCommons::getPropertySetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
 
     return "";
 }

@@ -14,16 +14,18 @@ using namespace Commons::Strings;
 
 namespace Constants {
 
-    std::string CLASS = "class";
-    std::string STATEMENT_END = ";";
+    const std::string CLASS = "class";
+    const std::string STATEMENT_END = ";";
 
-    std::string TAB = "    ";
-    std::string BLOCK_ON = "{";
-    std::string BLOCK_OFF = "}";
-    std::string COMMENT_ON = "/*";
-    std::string COMMENT_OFF = "*/";
+    const std::string TAB = "    ";
+    const std::string BLOCK_ON = "{";
+    const std::string BLOCK_OFF = "}";
+    const std::string METHOD_ON = "(";
+    const std::string METHOD_OFF = ")";
+    const std::string COMMENT_ON = "/*";
+    const std::string COMMENT_OFF = "*/";
 
-    std::string SIGNATURE = "Generated with '" + std::string(VERSIONABLE_NAME) + "' " + getVersion()
+    const std::string SIGNATURE = "Generated with '" + std::string(VERSIONABLE_NAME) + "' " + getVersion()
                             + lineBreak() + TAB + getHomepage();
 }
 
