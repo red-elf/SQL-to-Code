@@ -104,7 +104,14 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
         content.append(newLine).append("public:").append(newLine);
 
-        // TODO: Getters and setters
+        for (auto &&propertyIngredient: *properties) {
+
+            auto propertyGetter = getPropertyGetterSignature(propertyIngredient);
+            auto propertySetter = getPropertySetterSignature(propertyIngredient);
+
+            content.append(TAB).append(propertyGetter).append(STATEMENT_END).append(newLine)
+                    .append(TAB).append(propertySetter).append(STATEMENT_END).append(newLine);
+        }
 
         content.append(BLOCK_OFF).append(STATEMENT_END);
 

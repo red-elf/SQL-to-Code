@@ -26,6 +26,10 @@ protected:
     static std::string getPropertyName(std::shared_ptr<ClassPropertyIngredient> &ingredient);
 
     static std::string getPropertyType(std::shared_ptr<ClassPropertyIngredient> &ingredient);
+
+    static std::string getPropertyGetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient);
+
+    static std::string getPropertySetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient);
 };
 
 

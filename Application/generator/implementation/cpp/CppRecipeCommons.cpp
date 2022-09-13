@@ -65,3 +65,13 @@ std::string CppRecipeCommons::getPropertyType(std::shared_ptr<ClassPropertyIngre
             return "";
     }
 }
+
+std::string CppRecipeCommons::getPropertyGetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+
+    return "";
+}
+
+std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+
+    return "";
+}
