@@ -73,9 +73,16 @@ std::string CppRecipeCommons::getPropertyGetterSignature(std::shared_ptr<ClassPr
     auto dataType = getPropertyType(ingredient);
     auto propertyName = getPropertyName(ingredient);
 
+    auto prefix = "get";
+
+    if (ingredient->getType() == ClassPropertyDataType::BOOLEAN) {
+
+        prefix = "is";
+    }
+
     return dataType
             .append(" ")
-            .append("get")
+            .append(prefix)
             .append(capitalize(propertyName))
             .append(METHOD_ON)
             .append(METHOD_OFF);
