@@ -24,6 +24,8 @@ protected:
     static std::string getClassName(std::shared_ptr<ClassNameIngredient> &ingredient);
 
     static std::string getPropertyName(std::shared_ptr<ClassPropertyIngredient> &ingredient);
+
+    static std::string getPropertyType(std::shared_ptr<ClassPropertyIngredient> &ingredient);
 };
 
 
