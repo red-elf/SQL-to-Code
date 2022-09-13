@@ -49,7 +49,10 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
                         newLine);
 
         auto properties = ingredientsSet->getProperties();
-        v(tag, "Class properties count: " + std::to_string(properties->size()));
+        if (logFull()) {
+
+            v(tag, "Class properties count: " + std::to_string(properties->size()));
+        }
 
         content.append(TAB).append("private:").append(newLine);
 
@@ -70,13 +73,16 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
                 return false;
             }
 
-            auto msg = std::string("Class property: ")
-                    .append(propertyName)
-                    .append(" (")
-                    .append(dataType)
-                    .append(")");
+            if (logFull()) {
 
-            v(tag, msg);
+                auto msg = std::string("Class property: ")
+                        .append(propertyName)
+                        .append(" (")
+                        .append(dataType)
+                        .append(")");
+
+                v(tag, msg);
+            }
         }
 
         content.append(BLOCK_OFF).append(STATEMENT_END);
