@@ -85,7 +85,8 @@ std::string CppRecipeCommons::getPropertyGetterSignature(std::shared_ptr<ClassPr
             .append(prefix)
             .append(capitalize(propertyName))
             .append(METHOD_ON)
-            .append(METHOD_OFF);
+            .append(METHOD_OFF)
+            .append(STATEMENT_END);
 }
 
 std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
@@ -101,15 +102,52 @@ std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPr
             .append(dataType)
             .append(" ")
             .append("value")
-            .append(METHOD_OFF);
+            .append(METHOD_OFF)
+            .append(STATEMENT_END);
 }
 
 std::string CppRecipeCommons::getPropertyGetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
 
-    return "";
+    auto newLine = lineBreak();
+    auto dataType = getPropertyType(ingredient);
+    auto propertyName = getPropertyName(ingredient);
+
+    auto prefix = "get";
+
+    if (ingredient->getType() == ClassPropertyDataType::BOOLEAN) {
+
+        prefix = "is";
+    }
+
+    return dataType
+            .append(" ")
+            .append(prefix)
+            .append(capitalize(propertyName))
+            .append(METHOD_ON)
+            .append(METHOD_OFF)
+            .append(BLOCK_ON)
+            .append(TAB).append(newLine).append("return ").append(propertyName).append(STATEMENT_END)
+            .append(BLOCK_OFF)
+            .append(STATEMENT_END);
 }
 
 std::string CppRecipeCommons::getPropertySetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
 
-    return "";
+    auto newLine = lineBreak();
+    auto dataType = getPropertyType(ingredient);
+    auto propertyName = getPropertyName(ingredient);
+
+    return std::string("void")
+            .append(" ")
+            .append("set")
+            .append(capitalize(propertyName))
+            .append(METHOD_ON)
+            .append(dataType)
+            .append(" ")
+            .append("value")
+            .append(METHOD_OFF)
+            .append(BLOCK_ON)
+            .append(TAB).append(newLine).append("this.").append(propertyName).append(" = value").append(STATEMENT_END)
+            .append(BLOCK_OFF)
+            .append(STATEMENT_END);
 }

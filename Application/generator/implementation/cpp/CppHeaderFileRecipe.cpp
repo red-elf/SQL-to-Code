@@ -109,8 +109,8 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             auto propertyGetter = getPropertyGetterSignature(propertyIngredient);
             auto propertySetter = getPropertySetterSignature(propertyIngredient);
 
-            content.append(TAB).append(propertyGetter).append(STATEMENT_END).append(newLine)
-                    .append(TAB).append(propertySetter).append(STATEMENT_END).append(newLine);
+            content.append(TAB).append(propertyGetter).append(newLine)
+                    .append(TAB).append(propertySetter).append(newLine);
         }
 
         content.append(BLOCK_OFF).append(STATEMENT_END);
