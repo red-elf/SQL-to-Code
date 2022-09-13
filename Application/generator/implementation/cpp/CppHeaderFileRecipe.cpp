@@ -61,15 +61,15 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             content.append("#include \"string\"").append(newLine).append(newLine);
         }
 
-        content.append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON).append(newLine).append(
-                newLine);
+        content.append(CLASS).append(" ").append(className).append(" ").append(BLOCK_ON)
+                .append(newLine).append(newLine);
 
         if (logFull()) {
 
             v(tag, "Class properties count: " + std::to_string(properties->size()));
         }
 
-        content.append(TAB).append("private:").append(newLine);
+        content.append("private:").append(newLine);
 
         for (auto &&propertyIngredient: *properties) {
 
@@ -98,7 +98,13 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
                 v(tag, msg);
             }
+
+            content.append(TAB).append(dataType).append(" ").append(propertyName).append(STATEMENT_END).append(newLine);
         }
+
+        content.append(newLine).append("public:").append(newLine);
+
+        // TODO: Getters and setters
 
         content.append(BLOCK_OFF).append(STATEMENT_END);
 
