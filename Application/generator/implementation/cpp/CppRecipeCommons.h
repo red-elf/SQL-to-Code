@@ -31,9 +31,17 @@ protected:
 
     static std::string getPropertySetterSignature(std::shared_ptr<ClassPropertyIngredient> &ingredient);
 
-    static std::string getPropertyGetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient);
+    static std::string getPropertyGetterImplementation(
 
-    static std::string getPropertySetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient);
+            std::shared_ptr<ClassNameIngredient> &classNameIngredient,
+            std::shared_ptr<ClassPropertyIngredient> &propertyIngredient
+    );
+
+    static std::string getPropertySetterImplementation(
+
+            std::shared_ptr<ClassNameIngredient> &classNameIngredient,
+            std::shared_ptr<ClassPropertyIngredient> &propertyIngredient
+    );
 };
 
 

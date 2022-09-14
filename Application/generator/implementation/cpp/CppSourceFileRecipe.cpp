@@ -49,7 +49,16 @@ bool CppSourceFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
                 .append(newLine)
                 .append("#include \"" + headerFileName + "\"").append(newLine).append(newLine);
 
-        // TODO:
+        auto properties = ingredientsSet->getProperties();
+
+        for (auto &&propertyIngredient: *properties) {
+
+            auto propertyGetter = getPropertyGetterImplementation(classNameIngredient, propertyIngredient);
+            //auto propertySetter = getPropertySetterImplementation(propertyIngredient);
+
+            content.append(propertyGetter).append(newLine);
+//                 .append(propertySetter).append(newLine);
+        }
 
         if (logFull()) {
 

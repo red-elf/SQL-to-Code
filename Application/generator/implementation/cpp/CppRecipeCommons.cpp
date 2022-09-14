@@ -106,36 +106,48 @@ std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPr
             .append(STATEMENT_END);
 }
 
-std::string CppRecipeCommons::getPropertyGetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+std::string CppRecipeCommons::getPropertyGetterImplementation(
 
-    auto newLine = lineBreak();
-    auto dataType = getPropertyType(ingredient);
-    auto propertyName = getPropertyName(ingredient);
+        std::shared_ptr<ClassNameIngredient> &classNameIngredient,
+        std::shared_ptr<ClassPropertyIngredient> &propertyIngredient
+) {
 
     auto prefix = "get";
 
-    if (ingredient->getType() == ClassPropertyDataType::BOOLEAN) {
+    if (propertyIngredient->getType() == ClassPropertyDataType::BOOLEAN) {
 
         prefix = "is";
     }
 
+    auto newLine = lineBreak();
+    auto className = getClassName(classNameIngredient);
+    auto dataType = getPropertyType(propertyIngredient);
+    auto propertyName = getPropertyName(propertyIngredient);
+    auto methodPropertyValue = getPropertyName(propertyIngredient);
+    auto methodProperty = capitalize(methodPropertyValue);
+    auto methodName = std::string(prefix).append(methodProperty);
+
     return dataType
             .append(" ")
-            .append(prefix)
-            .append(capitalize(propertyName))
+            .append(className).append("::")
+            .append(methodName)
             .append(METHOD_ON)
             .append(METHOD_OFF)
-            .append(BLOCK_ON)
-            .append(TAB).append(newLine).append("return ").append(propertyName).append(STATEMENT_END)
+            .append(" ").append(BLOCK_ON)
+            .append(TAB).append(newLine).append(TAB).append("return ").append(propertyName).append(STATEMENT_END).append(newLine)
             .append(BLOCK_OFF)
-            .append(STATEMENT_END);
+            .append(newLine);
 }
 
-std::string CppRecipeCommons::getPropertySetterImplementation(std::shared_ptr<ClassPropertyIngredient> &ingredient) {
+std::string CppRecipeCommons::getPropertySetterImplementation(
+
+        std::shared_ptr<ClassNameIngredient> &classNameIngredient,
+        std::shared_ptr<ClassPropertyIngredient> &propertyIngredient
+) {
 
     auto newLine = lineBreak();
-    auto dataType = getPropertyType(ingredient);
-    auto propertyName = getPropertyName(ingredient);
+    auto dataType = getPropertyType(propertyIngredient);
+    auto propertyName = getPropertyName(propertyIngredient);
 
     return std::string("void")
             .append(" ")
