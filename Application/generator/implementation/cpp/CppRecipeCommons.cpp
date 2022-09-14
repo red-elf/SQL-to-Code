@@ -135,8 +135,7 @@ std::string CppRecipeCommons::getPropertyGetterImplementation(
             .append(METHOD_OFF)
             .append(" ").append(BLOCK_ON)
             .append(TAB).append(newLine).append(TAB).append("return ").append(propertyName).append(STATEMENT_END).append(newLine)
-            .append(BLOCK_OFF)
-            .append(newLine);
+            .append(BLOCK_OFF);
 }
 
 std::string CppRecipeCommons::getPropertySetterImplementation(
@@ -145,21 +144,28 @@ std::string CppRecipeCommons::getPropertySetterImplementation(
         std::shared_ptr<ClassPropertyIngredient> &propertyIngredient
 ) {
 
+    auto prefix = "set";
     auto newLine = lineBreak();
+    auto className = getClassName(classNameIngredient);
     auto dataType = getPropertyType(propertyIngredient);
     auto propertyName = getPropertyName(propertyIngredient);
+    auto methodPropertyValue = getPropertyName(propertyIngredient);
+    auto methodProperty = capitalize(methodPropertyValue);
+    auto methodName = std::string(prefix).append(methodProperty);
 
     return std::string("void")
             .append(" ")
-            .append("set")
-            .append(capitalize(propertyName))
+            .append(className).append("::")
+            .append(methodName)
             .append(METHOD_ON)
             .append(dataType)
             .append(" ")
             .append("value")
             .append(METHOD_OFF)
+            .append(" ")
             .append(BLOCK_ON)
-            .append(TAB).append(newLine).append("this.").append(propertyName).append(" = value").append(STATEMENT_END)
-            .append(BLOCK_OFF)
-            .append(STATEMENT_END);
+            .append(newLine)
+            .append(TAB).append("this->").append(propertyName).append(" = value").append(STATEMENT_END)
+            .append(newLine)
+            .append(BLOCK_OFF);
 }

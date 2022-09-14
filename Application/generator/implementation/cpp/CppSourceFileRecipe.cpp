@@ -54,10 +54,10 @@ bool CppSourceFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
         for (auto &&propertyIngredient: *properties) {
 
             auto propertyGetter = getPropertyGetterImplementation(classNameIngredient, propertyIngredient);
-            //auto propertySetter = getPropertySetterImplementation(propertyIngredient);
+            auto propertySetter = getPropertySetterImplementation(classNameIngredient, propertyIngredient);
 
-            content.append(propertyGetter).append(newLine);
-//                 .append(propertySetter).append(newLine);
+            content.append(propertyGetter).append(newLine).append(newLine)
+                    .append(propertySetter).append(newLine).append(newLine);
         }
 
         if (logFull()) {
