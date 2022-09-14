@@ -134,7 +134,8 @@ std::string CppRecipeCommons::getPropertyGetterImplementation(
             .append(METHOD_ON)
             .append(METHOD_OFF)
             .append(" ").append(BLOCK_ON)
-            .append(TAB).append(newLine).append(TAB).append("return ").append(propertyName).append(STATEMENT_END).append(newLine)
+            .append(TAB).append(newLine).append(TAB).append("return this->")
+            .append(propertyName).append(STATEMENT_END).append(newLine)
             .append(BLOCK_OFF);
 }
 
