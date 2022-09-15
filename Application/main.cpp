@@ -108,19 +108,19 @@ int main(int argc, char *argv[]) {
         if (targetInput == Target::CPP) {
 
             target = ETarget::CPP;
-            codeOutput.append(separator).append("CPP");
+            codeOutput.append(separator).append("cpp");
         }
 
         if (targetInput == Target::JVM) {
 
             target = ETarget::JVM;
-            codeOutput.append(separator).append("JVM");
+            codeOutput.append(separator).append("jvm");
         }
 
         if (targetInput == Target::DART) {
 
             target = ETarget::DART;
-            codeOutput.append(separator).append("Dart");
+            codeOutput.append(separator).append("dart");
         }
 
         if (target == Target::ETarget::UNKNOWN) {
