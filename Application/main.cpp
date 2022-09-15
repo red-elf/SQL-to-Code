@@ -1,5 +1,6 @@
-#include <iostream>
 #include <vector>
+#include <iostream>
+#include <filesystem>
 #include <argparse/argparse.hpp>
 
 #include "Utils.h"
@@ -34,6 +35,8 @@ int main(int argc, char *argv[]) {
     auto workFileTag = "work file";
     auto processingTag = "processing";
     auto codeGeneratorTag = "code generator";
+
+    std::string separator(1, fileSeparator());
 
     CodeGenerator codeGenerator;
     StringDataProcessor processor;
@@ -97,6 +100,7 @@ int main(int argc, char *argv[]) {
         auto processed = 0;
         auto targetInput = program.get<std::string>("target");
         auto output = program.get<std::string>("output");
+        auto codeOutput = std::string(output).append(separator).append("Source");
         auto inputs = program.get<std::vector<std::string>>("input");
 
         auto target = ETarget::UNKNOWN;
@@ -104,16 +108,19 @@ int main(int argc, char *argv[]) {
         if (targetInput == Target::CPP) {
 
             target = ETarget::CPP;
+            codeOutput.append(separator).append("CPP");
         }
 
         if (targetInput == Target::JVM) {
 
             target = ETarget::JVM;
+            codeOutput.append(separator).append("JVM");
         }
 
         if (targetInput == Target::DART) {
 
             target = ETarget::DART;
+            codeOutput.append(separator).append("Dart");
         }
 
         if (target == Target::ETarget::UNKNOWN) {
@@ -123,8 +130,8 @@ int main(int argc, char *argv[]) {
         }
 
         // TODO: Instantiate only needed recipes
-        CppHeaderFileRecipe cppHeaderFileRecipe(output);
-        CppSourceFileRecipe cppSourceFileRecipe(output);
+        CppHeaderFileRecipe cppHeaderFileRecipe(codeOutput);
+        CppSourceFileRecipe cppSourceFileRecipe(codeOutput);
 
         for (std::string &input: inputs) {
 
@@ -146,7 +153,18 @@ int main(int argc, char *argv[]) {
 
             query = processor.process(query);
 
-            const std::string workFile = (output + fileSeparator())
+            auto workFileDirectory = std::string(output)
+                    .append(separator)
+                    .append("Definition")
+                    .append(separator);
+
+            if (!createDirectories(workFileDirectory)) {
+
+                e(errTag, "Directory could not be created: " + workFileDirectory);
+                std::exit(1);
+            }
+
+            const std::string workFile = workFileDirectory
                     .append("work.")
                     .append(std::to_string(processed))
                     .append(".sql");

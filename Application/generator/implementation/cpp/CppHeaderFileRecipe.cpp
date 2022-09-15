@@ -4,8 +4,9 @@
 
 #include "CppHeaderFileRecipe.h"
 
-#include "list"
-#include "string"
+#include <list>
+#include <string>
+
 #include "Utils.h"
 #include "Commons.h"
 #include "../../../Constants.h"
@@ -19,6 +20,12 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
 
     auto tag = getDescription();
     auto newLine = lineBreak();
+
+    if (!createDirectories(destination)) {
+
+        e(tag, "Directory could not be created: " + destination);
+        return false;
+    }
 
     for (const std::shared_ptr<Ingredients> &ingredientsSet: ingredients) {
 
