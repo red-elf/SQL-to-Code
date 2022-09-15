@@ -39,10 +39,9 @@ bool CppHeaderFileRecipe::cook(std::vector<std::shared_ptr<Ingredients>> &ingred
             return false;
         }
 
-        std::string className = getClassName(classNameIngredient);
-        std::string fileName = className + ".h";
-        // TODO: Separate files in the destination directory by the type:
-        std::string fileOutput = destination + fileSeparator() + fileName;
+        auto className = getClassName(classNameIngredient);
+        auto fileName = className + ".h";
+        auto fileOutput = destination + fileSeparator() + fileName;
 
         d(tag, "Class name: " + className);
         d(tag, "Output file: " + fileOutput);
