@@ -42,4 +42,5 @@ file(
 )
 add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
+# FIXME: Install the dependencies:
 install(TARGETS ${PROJECT_NAME} DESTINATION bin/${PROJECT_NAME})
