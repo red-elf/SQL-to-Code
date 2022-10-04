@@ -48,6 +48,6 @@ file(
         "generator/implementation/jvm/*.h" "generator/implementation/jvm/*.cpp"
         "generator/implementation/dart/*.h" "generator/implementation/dart/*.cpp"
 )
-add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
+add_executable(${VERSIONABLE_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION bin/${PROJECT_NAME})
+install(TARGETS ${VERSIONABLE_NAME} DESTINATION bin/${PROJECT_NAME})
