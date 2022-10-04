@@ -26,6 +26,14 @@ include_directories("/usr/local/include/hsql")
 link_directories("/usr/local/lib/")
 link_libraries(sqlparser)
 
+add_library(sqlparser SHARED IMPORTED)
+set_target_properties(
+
+    sqlparser PROPERTIES
+    IMPORTED_LOCATION "/usr/local/lib/libsqlparser.so"
+    IMPORTED_SONAME "libsqlparser.so"
+)
+
 # argparse dependency:
 include_directories("/usr/local/include/argparse")
 
@@ -42,5 +50,4 @@ file(
 )
 add_executable(${PROJECT_NAME} ${APP_SRC} main.cpp Utils.h Utils.cpp)
 
-# FIXME: Install the dependencies:
 install(TARGETS ${PROJECT_NAME} DESTINATION bin/${PROJECT_NAME})
