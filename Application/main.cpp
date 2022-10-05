@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     program.add_argument("-i", "--input")
             .required()
             .nargs(1, 1000)
-            .help("The path for the input SQL file");
+            .help("The path for the input SQL file(s)");
 
     program.add_argument("-t", "--target")
             .required()

@@ -16,7 +16,7 @@ Program arguments:
 
 - -h --help, shows help message and exits [default: false]
 - -v --version, prints version information and exits [default: false]
-- -i --input, The path for the input SQL file [required]
+- -i --input, The path for the input SQL file(s) [required]
 - -t --target, The target programming language [required]
 - -o --output, The destination output directory [required]
 - -l --logFull, Log with the full details [default: false]
