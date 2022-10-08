@@ -2,9 +2,16 @@
 
 Tool for generating source code from the raw sql data.
 
-## Code dependencies
+## How to install
 
-The sql2code codebase dependencies are defined under the [Dependencies](./Dependencies) directory.
+Follow the installation steps:
+
+- Clone the project
+- From the project root execute:
+
+```shell
+git submodule init && git submodule update && sh Installable/install.sh
+```
 
 ## How to use
 
@@ -36,3 +43,6 @@ This is the list of the supported targets in the current version:
 
 *Note:* More programming language recipes and features will come in upcoming development iterations.
 
+## Code dependencies
+
+The sql2code codebase dependencies are defined under the [Dependencies](./Dependencies) directory.
