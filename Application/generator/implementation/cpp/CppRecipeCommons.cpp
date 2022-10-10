@@ -100,7 +100,7 @@ std::string CppRecipeCommons::getPropertySetterSignature(std::shared_ptr<ClassPr
             .append(capitalize(propertyName))
             .append(METHOD_ON)
             .append(dataType)
-            .append(" ")
+            .append(" &")
             .append("value")
             .append(METHOD_OFF)
             .append(STATEMENT_END);
@@ -160,7 +160,7 @@ std::string CppRecipeCommons::getPropertySetterImplementation(
             .append(methodName)
             .append(METHOD_ON)
             .append(dataType)
-            .append(" ")
+            .append(" &")
             .append("value")
             .append(METHOD_OFF)
             .append(" ")
