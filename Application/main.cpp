@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
             std::exit(1);
         }
 
-        // TODO: Instantiate only needed recipes
+        // TODO: Instantiate only needed recipes based on the program arguments provided
         CppHeaderFileRecipe cppHeaderFileRecipe(codeOutput);
         CppSourceFileRecipe cppSourceFileRecipe(codeOutput);
 
