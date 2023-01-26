@@ -17,6 +17,7 @@ std::string StringDataProcessor::trimRow(std::string &row) {
     row = eraseBetween(row, "CHECK", ")),");
     row = eraseBetween(row, "CHECK", "))");
     row = eraseBetween(row, "UNIQUE", "ABORT");
+    row = eraseBetween(row, "UNIQUE", ");");
 
     return row;
 }
