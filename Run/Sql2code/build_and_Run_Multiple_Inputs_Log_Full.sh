@@ -22,5 +22,5 @@ do
     fi
 done
 
-
-sh Versionable/versionable_build.sh Application .. && Application/Build/sql2code -i $SQL_FILES_ARG -t cpp -l -o ./Work
+cd "$HERE" &&
+    sh Versionable/versionable_build.sh Application .. && Application/Build/sql2code -i $SQL_FILES_ARG -t cpp -l -o ./Work

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+HERE="$(pwd)"
+
 if [ -z "$1" ]; then
 
     echo "ERROR: SQL file path not provided"
@@ -14,4 +16,5 @@ if ! test -e "$SQL_FILE"; then
     exit 1
 fi
 
-sh Versionable/versionable_build.sh Application .. && Application/Build/sql2code -i "$SQL_FILE" -t cpp -l -o ./Work
+cd "$HERE" &&
+    sh Versionable/versionable_build.sh Application .. && Application/Build/sql2code -i "$SQL_FILE" -t cpp -l -o ./Work
